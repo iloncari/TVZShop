@@ -1,6 +1,7 @@
 let express = require('express');
-let app = express();
 let bodyParser = require('body-parser');
+let app = express();
+
 let morgan = require('morgan');
 let path = require('path');
 let jwt = require('jsonwebtoken');
@@ -25,6 +26,7 @@ mongo.connect(config.pool, function(err, database){
             res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, \ Authorization');
             next();
         });
+
         app.use(morgan('dev'));
 
         let authRouter = require('./app/routes/authenticate')(app,express,database.db('TVZShop'),jwt,config.secret, bcrypt);
