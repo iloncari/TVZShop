@@ -1,7 +1,6 @@
 let express = require('express');
-let bodyParser = require('body-parser');
 let app = express();
-
+let bodyParser = require('body-parser');
 let morgan = require('morgan');
 let path = require('path');
 let jwt = require('jsonwebtoken');

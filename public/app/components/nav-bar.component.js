@@ -11,14 +11,20 @@ tvzShopApp.component('navBar', {
             </ul>
        </div>      
    `,
-    controller: function ($state, $scope) {
-        this.logout = function () {
-           // AuthenticationService.logout();
+    controller: function ($state, $scope, AuthenticationService) {
+        this.$onInit = function () {
+            this.isLoggedIn =AuthenticationService.isAuthenticated();
         };
+
+        this.logout = function () {
+            AuthenticationService.logout();
+            this.isLoggedIn=false;
+        };
+
         this.getClass = function (c) {
             if ($state.current.name == c) return 'active';
         };
-        this.isLoggedIn = false;
+
         $scope.$on('login_status',(e, d)=>{
             this.isLoggedIn=d;
         });

@@ -6,7 +6,7 @@
             <fieldset id="loginForm_username" class="form-group"
                       ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
                 <label>Korisničko ime*</label>
-                <input type="text" name="username" class="form-control" ng-model="c.credentials.username"
+                <input type="text" name="username" class="form-control" ng-model="c.user.username"
                        ng-minlength="3" ng-maxlength="15" required>
                 <p ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="help-block">
                     Unesite korisničko ime</p>
@@ -17,13 +17,18 @@
             <fieldset id="loginForm_password" class="form-group"
                       ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
                 <label>Lozinka*</label>
-                <input type="password" name="password" class="form-control" ng-model="c.credentials.password"
+                <input type="password" name="password" class="form-control" ng-model="c.user.password"
                        ng-minlength="6" ng-maxlength="15" required>
                 <p ng-show="loginForm.password.$error.required  && !loginForm.password.$pristine" class="help-block">
                     Unesite lozinku.</p>
                 <p ng-show="(loginForm.password.$error.minlength || loginForm.password.$error.maxlength ) && !loginForm.password.$pristine"
                    class="help-block">Lozinka mora imati između 6 i 15 znakova.</p>
             </fieldset>
+
+            <div id="login_msg" ng-show="c.loginStatus.message"
+                 ng-class="c.loginStatus.status == 200 ? 'alert alert-success' : 'alert alert-warning'">
+                {{c.loginStatus.message}}
+            </div>
 
             <button type="submit" class="btn btn-secondary" ng-disabled="loginForm.$invalid">Prijava</button>
         </form>

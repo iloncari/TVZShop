@@ -32,11 +32,32 @@
                    class="help-block">Lozinka mora imati između 6 i 15 znakova.</p>
             </fieldset>
 
-            <fieldset class="form-group" ng-class="{ 'has-error' : userForm.telefon.$invalid && !userForm.telefon.$pristine }">
+            <fieldset class="form-group" ng-class="{ 'has-error' : userForm.telefon.$invalid && !userForm.contactNumber.$pristine }">
                 <label>Kontakt telefon</label>
-                <input type="number" name="telefon" class="form-control" ng-model="c.user.telefon">
-                <p ng-show="userForm.telefon.$invalid && !userForm.telefon.$pristine" class="help-block">Kontakt</p>
+                <input type="number" name="contactNumber" class="form-control" ng-model="c.user.contactNumber">
+                <p ng-show="userForm.contactNumber.$invalid && !userForm.contactNumber.$pristine" class="help-block">Uneseni kontakt je u neispravnom formatu</p>
             </fieldset>
+
+            <fieldset  ng-if="c.chooseCounty" class="form-group">
+                <label>Županija</label><br>
+                <select ng-click="c.findCities(c.user.location.county)" ng-model="c.user.location.county" name="county" >
+                    <option value="" selected>Odaberite</option>
+                    <option value="{{county.name}}" ng-repeat="county in c.counties">{{county.name}}</option>
+                </select>
+            </fieldset>
+
+            <fieldset ng-if="c.chooseCity" class="form-group">
+                <label>Grad/općina</label><br>
+                <select ng-model="c.user.location.city" name="city">
+                    <option value="" selected>Odaberite</option>
+                    <option value="{{city.name}}" ng-repeat="city in c.cities">{{city.name}}</option>
+                </select>
+            </fieldset>
+
+            <div id="register_msg" ng-show="c.registerStatus.message"
+                 ng-class="c.registerStatus.status == 'OK' ? 'alert alert-success' : 'alert alert-warning'">
+                {{c.registerStatus.message}}
+            </div>
 
             <button type="submit" class="btn btn-secondary" ng-disabled="userForm.$invalid">Registracija</button>
 
