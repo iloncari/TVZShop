@@ -1,0 +1,39 @@
+<div id="container_login">
+    <h3>Prijava</h3>
+
+    <div>
+        <form name="loginForm" ng-submit="c.login()" novalidate>
+            <fieldset id="loginForm_username" class="form-group"
+                      ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
+                <label>Korisničko ime*</label>
+                <input type="text" name="username" class="form-control" ng-model="c.credentials.username"
+                       ng-minlength="3" ng-maxlength="15" required>
+                <p ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="help-block">
+                    Unesite korisničko ime</p>
+                <p ng-show="(loginForm.username.$error.minlength || loginForm.username.$error.maxlength ) && !loginForm.username.$pristine"
+                   class="help-block">Korisničko ime mora imati između 3 i 15 znakova.</p>
+            </fieldset>
+
+            <fieldset id="loginForm_password" class="form-group"
+                      ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+                <label>Lozinka*</label>
+                <input type="password" name="password" class="form-control" ng-model="c.credentials.password"
+                       ng-minlength="6" ng-maxlength="15" required>
+                <p ng-show="loginForm.password.$error.required  && !loginForm.password.$pristine" class="help-block">
+                    Unesite lozinku.</p>
+                <p ng-show="(loginForm.password.$error.minlength || loginForm.password.$error.maxlength ) && !loginForm.password.$pristine"
+                   class="help-block">Lozinka mora imati između 6 i 15 znakova.</p>
+            </fieldset>
+
+            <button type="submit" class="btn btn-secondary" ng-disabled="loginForm.$invalid">Prijava</button>
+        </form>
+
+        <aside>
+            <h5>Još nemaš profil?<br><br> <a class="link" ui-sref="register">Registriraj se »</a> potpuno besplatno!</h5>
+
+        </aside>
+        <br style="clear: both"/>
+    </div>
+
+
+</div>
