@@ -1,0 +1,70 @@
+<div id="brand_list">
+    <div id="brand_list_intro_text">
+        <h4>{{c.category}}</h4>
+        <p>{{c.introText}}</p>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-click="c.onBrandItemClick('')">
+            <h6>Sve</h6>
+        </div>
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(1)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(2)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(3)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(4)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(5)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(6)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(7)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(8)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(9)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <div class="brand_list_section">
+        <div class="brand_list_item" ng-repeat="brand in c.getColumnBrands(10)" ng-click="c.onBrandItemClick(brand.name)">
+            <h6>{{brand.name}}</h6>
+        </div>
+        <br style="clear: both"/>
+    </div>
+    <br style="clear: both"/>
+</div>

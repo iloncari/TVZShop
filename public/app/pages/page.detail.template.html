@@ -1,0 +1,101 @@
+<div class="container_ad_category" ng-if="!c.errorText">
+    <div id="ad_detail_title_section">
+        <h3>{{c.advertisement.title}}</h3>
+        <p>
+            <label>Cijena: {{c.advertisement.price}} kn</label>
+        </p>
+        <div>
+            <label>Šifra oglasa: {{c.advertisement._id}}</label><br>
+            <label>Objavljen: {{c.advertisement.date}}</label><br>
+        </div>
+        <br style="clear: both">
+    </div>
+    <div id="container_ad_data">
+        <section>
+            <div id="ad_data_table">
+                <p><label>Lokacija:</label> {{c.advertisement.location.city}}, {{c.advertisement.location.county}}</p>
+                <p><label>Brand:</label> {{c.advertisement.brand}}</p>
+                <p><label>Model:</label> {{c.advertisement.model}}</p>
+                <p><label>Godina proizvodnje:</label> {{c.advertisement.year}}</p>
+                <p ng-if="c.advertisement.traficYear"><label>U prometu od:</label> {{c.advertisement.traficYear}}</p>
+                <p ng-if="c.advertisement.firstRegistration"><label>Prva registracija u RH:</label>
+                    {{c.advertisement.firstRegistration}}</p>
+                <p ng-if="c.advertisement.fuelType"><label>Tip motora:</label> {{c.advertisement.fuelType}}</p>
+                <p ng-if="c.advertisement.power"><label>Snaga motora:</label> {{c.advertisement.power}} kW</p>
+                <p ng-if="c.advertisement.cylindersVolume"><label>Radni obujam u cm&sup3;:</label>
+                    {{c.advertisement.cylindersVolume}} cm&sup3;</p>
+                <p ng-if="c.advertisement.km"><label>Prijeđeni kilometri:</label> {{c.advertisement.km}}</p>
+                <p ng-if="c.advertisement.wh"><label>Radni sati:</label> {{c.advertisement.wh}}</p>
+                <p ng-if="c.advertisement.garaged && c.advertisement.type=='Automobili'"><label>Garažiran:</label> DA</p>
+                <p ng-if="!c.advertisement.garaged && c.advertisement.type=='Automobili'"><label>Garažiran:</label> NE</p>
+                <p ng-if="!c.advertisement.fuelConsumption && c.advertisement.type=='Automobili'"><label>Potrošnja:</label>
+                    {{c.advertisement.fuelConsumption}} l/100km</p>
+                <p ng-if="!c.advertisement.emisionCO2 && c.advertisement.type=='Automobili'"><label>Maksimalna emisija CO&sup2;:</label>
+                    {{c.advertisement.emisionCO2}} g/km</p>
+                <p ng-if="!c.advertisement.emissionCategory && c.advertisement.type=='Automobili'"><label>Ekološka kategorija
+                    vozila:</label> {{c.advertisement.emissionCategory}} g/km</p>
+                <p ng-if="c.advertisement.serviceBook && c.advertisement.type=='Automobili'"><label>Servisna knjiga:</label> DA
+                </p>
+                <p ng-if="!c.advertisement.serviceBook && c.advertisement.type=='Automobili'"><label>Servisna knjiga:</label>
+                    NE</p>
+                <p ng-if="c.advertisement.door"><label>Broj vrata:</label> {{c.advertisement.door}}</p>
+                <p ng-if="c.advertisement.driveType"><label>Pogon:</label> {{c.advertisement.driveType}}</p>
+                <p ng-if="c.advertisement.shiftType"><label>Mjenjač:</label> {{c.advertisement.shiftType}}</p>
+                <p ng-if="c.advertisement.speed"><label>Maksimalna brzina:</label> {{c.advertisement.speed}} km/h</p>
+                <p ng-if="c.advertisement.color"><label>Boja:</label> {{c.advertisement.color}}</p>
+                <p ng-if="c.advertisement.registration"><label>Registristracija:</label>
+                    {{c.advertisement.registration}}</p>
+                <p ng-if="c.advertisement.owner"><label>Vlasnik:</label> {{c.advertisement.owner}}</p>
+                <p ng-if="c.advertisement.vinNumber"><label>Broj Šasije:</label> {{c.advertisement.vinNumber}}</p>
+                <p ng-if="c.advertisement.screen"><label>Veličina zaslona:</label> {{c.advertisement.screen}}"</p>
+                <p ng-if="c.advertisement.ram"><label>Količina RAM memorije:</label> {{c.advertisement.ram}} GB</p>
+                <p ng-if="c.advertisement.hd && c.advertisement.type=='Mobilni telefoni'"><label>Količina memorije:</label>
+                    {{c.advertisement.hd}} GB</p>
+                <p ng-if="c.advertisement.hd && c.advertisement.type=='Računala'"><label>Količina HD memorije:</label>
+                    {{c.advertisement.hd}} GB</p>
+                <p ng-if="c.advertisement.ssd"><label>Količina SSD memorije:</label> {{c.advertisement.ssd}} GB</p>
+                <p ng-if="c.advertisement.procesor"><label>Procesor:</label> {{c.advertisement.procesor}}</p>
+                <p ng-if="c.advertisement.graphic"><label>Grafička kartica:</label> {{c.advertisement.graphic}}
+            </div>
+            <div id="ad_desc">
+                <label>Opširnije:</label>
+                <p>{{c.advertisement.desc}}</p>
+                <div ng-if="c.advertisement.type=='Automobili' && c.advertisement.extraEquipmentList.length!=0">
+                    <label>Dodatna oprema vozila:</label>
+                    <ul>
+                        <li ng-repeat="extraEquipment in c.advertisement.extraEquipmentList">{{extraEquipment}}</li>
+                    </ul>
+                </div>
+                <div ng-if="c.advertisement.type=='Automobili' &&c.advertisement.safetyEquipmentList.length!=0">
+                    <label>Sigurnost:</label>
+                    <ul>
+                        <li ng-repeat="safeEquipment in c.advertisement.safetyEquipmentList">{{safeEquipment}}</li>
+                    </ul>
+                </div>
+                <div ng-if="c.advertisement.type=='Automobili' &&c.advertisement.comfortEquipmentList.length!=0">
+                    <label>Udobnost:</label>
+                    <ul>
+                        <li ng-repeat="comfortEquipment in c.advertisement.comfortEquipmentList">{{comfortEquipment}}</li>
+                    </ul>
+                </div>
+                <div ng-if="c.advertisement.type=='Traktori' && c.advertisement.eqipmentList.length!=0">
+                    <label>Dodatni podaci:</label>
+                    <ul>
+                        <li ng-repeat="equipment in c.advertisement.eqipmentList">{{equipment}}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <aside>
+            <div>
+                <img style="height: 250px;" ng-src="{{c.advertisement.image}}"/>
+            </div>
+            <div  id="ad_contact">
+                <label>Prodavač: {{c.owner.username}}</label><br>
+                <label>Kontakt: {{c.advertisement.contact}}</label>
+            </div>
+        </aside>
+        <br style="clear: left;">
+    </div>
+</div>
+<div id='error' ng-if="c.errorText">{{c.errorText}}</div>

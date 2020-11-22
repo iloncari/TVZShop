@@ -1,0 +1,744 @@
+<div id="container_advertisement">
+    <div id="advertisement_intro_text">
+        <h3>Predaja besplatnog oglasa</h3>
+        <p>Odabirom kategorije i popunjavanjem svih predviđenih polja za unos dobijate priliku predati BESPLATNI oglas.
+            <br> Oglas će biti vidljiv nekoliko trenutaka nakon predaje</p>
+    </div>
+    <form name="newAdForm" ng-submit="c.saveNewAd()" novalidate>
+        <fieldset id="newAdForm_type" class="form-group"
+                  ng-class="{ 'has-error' : newAdForm.type.$invalid && newAdForm.type.$touched }">
+            <label>Kategorija oglasa*</label><br>
+            <select ng-change="c.onAdTypeSelect(c.ad.type)" ng-model="c.ad.type" name="type" required>
+                <option value="" selected>Odaberite</option>
+                <option value="{{type}}" ng-repeat="type in c.adTypes">{{type}}</option>
+            </select>
+            <p ng-show="newAdForm.type.$invalid && newAdForm.type.$touched" class="help-block">Odaberite kategoriju
+                oglasa</p>
+        </fieldset>
+
+    <div id="form_table" ng-if="c.ad.type!==undefined && c.ad.type!==''">
+        <div class="intro_text">
+            <p>{{c.introText}}</p>
+        </div>
+        <div name="carAd" ng-if="c.isAdType('Automobili')">
+            <div class="new_ad_section">
+                <h3>Opći podaci o vozilu</h3>
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.brand.$invalid && newAdForm.brand.$touched }">
+                        <label>Marka automobila*</label><br>
+                        <select ng-change="c.onBrandSelect(c.ad.brand)" ng-model="c.ad.brand" name="brand"
+                                required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="{{brand.name}}" ng-repeat="brand in c.brands">{{brand.name}}
+                            </option>
+                        </select>
+                        <p ng-show="newAdForm.brand.$invalid && newAdForm.brand.$touched" class="help-block">Odaberite marku</p>
+                    </fieldset>
+
+                    <fieldset ng-show="c.ad.brand" class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.model.$invalid && newAdForm.model.$touched }">
+                        <label>Model*</label><br>
+                        <select name="model" ng-model="c.ad.model"
+                                ng-change="c.ad.title = (c.ad.brand ? (c.ad.brand + (c.ad.model ? ' ' + c.ad.model : '')) : '')"
+                                required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="{{model.name}}" ng-repeat="model in c.models">{{model.name}}
+                            </option>
+                        </select>
+                        <p ng-show="newAdForm.model.$invalid && newAdForm.model.$touched" class="help-block">Odaberite model</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.year.$invalid && !newAdForm.year.$pristine }">
+                        <label>Godina proizvodnje*</label><br>
+                        <input type="number" name="year" ng-model="c.ad.year" min="1971" max="2020"
+                               placeholder="Godina proizvodnje"
+                               required>
+                        <p ng-show="newAdForm.year.$error.required && !newAdForm.year.$pristine" class="help-block">Unesite godinu</p>
+                        <p ng-show="(newAdForm.year.$error.min || newAdForm.year.$error.max) && !newAdForm.year.$error.required && !newAdForm.year.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <br style="clear: left">
+                </div>
+            </div>
+            <div class="new_ad_section">
+                <h3>Tehničke katarkeristike vozila</h3>
+                <div>
+                    <div class="data_row">
+                        <fieldset class="form-group"
+                                  ng-class="{ 'has-error' : newAdForm.fuelType.$invalid && newAdForm.fuelType.$touched }">
+                            <label>Tip motora*</label><br>
+                            <select name="fuelType" ng-model="c.ad.fuelType" required>
+                                <option value="" selected>Odaberite</option>
+                                <option value="{{fuelType}}" ng-repeat="fuelType in c.fuelTypes">{{fuelType}}</option>
+                            </select>
+                            <p ng-show="newAdForm.fuelType.$invalid && newAdForm.fuelType.$touched" class="help-block">Odaberite tip motora</p>
+                        </fieldset>
+
+                        <fieldset class="form-group"
+                                  ng-class="{ 'has-error' : newAdForm.power.$invalid && !newAdForm.power.$pristine }">
+                            <label>Snaga motora (kW)*</label><br>
+                            <input type="number" name="power" ng-model="c.ad.power" required min="1" placeholder="Snaga">
+                            <p ng-show="newAdForm.power.$error.required && !newAdForm.power.$pristine" class="help-block">Unesite snagu motora</p>
+                            <p ng-show="newAdForm.power.$error.min && !newAdForm.power.$error.required && !newAdForm.power.$pristine"
+                               class="help-block">Unos je neispravan</p>
+                        </fieldset>
+
+                        <fieldset class="form-group"
+                                  ng-class="{ 'has-error' : newAdForm.driveType.$invalid && newAdForm.driveType.$touched }">
+                            <label>Vrsta pogona*</label><br>
+                            <select name="driveType" ng-model="c.ad.driveType" required>
+                                <option value="" selected>Odaberite</option>
+                                <option value="{{driveType}}" ng-repeat="driveType in c.driveTypes">{{driveType}}</option>
+                            </select>
+                            <p ng-show="newAdForm.driveType.$invalid && newAdForm.driveType.$touched" class="help-block">Odaberite vrstu</p>
+                        </fieldset>
+
+                        <br style="clear: left">
+                    </div>
+                    <div class="data_row">
+                        <fieldset class="form-group"
+                                  ng-class="{ 'has-error' : newAdForm.shiftType.$invalid && newAdForm.shiftType.$touched }">
+                            <label>Tip mjenjača*</label><br>
+                            <select name="shiftType" ng-model="c.ad.shiftType" required>
+                                <option value="" selected>Odaberite</option>
+                                <option value="{{shiftType}}" ng-repeat="shiftType in c.shiftTypes">{{shiftType}}</option>
+                            </select>
+                            <p ng-show="newAdForm.shiftType.$invalid && newAdForm.shiftType.$touched" class="help-block">Odaberite tip mjenjača</p>
+                        </fieldset>
+
+                        <fieldset class="form-group"
+                                  ng-class="{ 'has-error' : newAdForm.door.$invalid && !newAdForm.door.$pristine }">
+                            <label>Broj vrata*</label><br>
+                            <input type="number" name="door" ng-model="c.ad.door" min="1" max="9" required placeholder="Broj vrata">
+                            <p ng-show="newAdForm.door.$error.required && !newAdForm.door.$pristine" class="help-block">Unesite broj vrata</p>
+                            <p ng-show="(newAdForm.door.$error.min || newAdForm.door.$error.max) && !newAdForm.door.$error.required && !newAdForm.door.$pristine" class="help-block">Unos je neispravan</p>
+                        </fieldset>
+
+                        <fieldset class="form-group"
+                                  ng-class="{ 'has-error' : newAdForm.cylindersVolume.$invalid && !newAdForm.cylindersVolume.$pristine }">
+                            <label>Radni obujam u cm&sup3;*</label><br>
+                            <input type="number" name="cylindersVolume" ng-model="c.ad.cylindersVolume" required placeholder="Radni obujam" min="1" max="9999">
+                            <p ng-show="newAdForm.cylindersVolume.$error.required && !newAdForm.cylindersVolume.$pristine"
+                               class="help-block">Unesite radni obujam</p>
+                            <p ng-show="(newAdForm.cylindersVolume.$error.min || newAdForm.cylindersVolume.$error.max) && !newAdForm.cylindersVolume.$error.required && !newAdForm.cylindersVolume.$pristine" class="help-block">Unos je neispravan</p>
+                        </fieldset>
+                        <br style="clear: left">
+                    </div>
+                </div>
+            </div>
+            <div class="new_ad_section">
+                <h3>Oprema</h3>
+                <div class="equipment_section">
+                    <h4>Dodatna oprema</h4>
+                    <div style="text-align: left; padding-left: 5px;">
+                        <div ng-repeat="extraEquipment in c.extraEquipments">
+                            <label>
+                                <input type="checkbox" value="{{extraEquipment}}"
+                                       ng-click="c.onEquipmentSelect(extraEquipment, 'extra')"> {{extraEquipment}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="equipment_section">
+                    <h4>Sigurnost</h4>
+                    <div style="text-align: left; padding-left: 5px;">
+                        <div ng-repeat="safetyEquipment in c.safetyEquipments">
+                            <label>
+                                <input type="checkbox" value="{{safetyEquipment}}"
+                                       ng-click="c.onEquipmentSelect(safetyEquipment, 'safety')"> {{safetyEquipment}}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="text-align: left; padding-left: 5px;">
+                        <h5>Zračni jastuci</h5>
+                        <div ng-repeat="airbagType in c.airbagTypes">
+                            <label>
+                                <input type="radio" ng-model='c.changeAirbagVar' name="airbag" value="{{airbagType}}"
+                                       ng-change="c.onEquipmentSelect(airbagType, 'safety')"> {{airbagType}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="equipment_section">
+                    <h4>Udobnost</h4>
+                    <div style="text-align: left; padding-left: 5px;">
+                        <div ng-repeat="comfortEquipment in c.comfortEquipments">
+                            <label>
+                                <input type="checkbox"  value="{{comfortEquipment}}"
+                                       ng-click="c.onEquipmentSelect(comfortEquipment, 'comfort')">
+                                {{comfortEquipment}}
+                            </label>
+                        </div>
+                        <div>
+                            <h5>Klimatizacija</h5>
+                            <div ng-repeat="acType in c.acTypes">
+                                <label>
+                                    <input type="radio" ng-model='c.changeAcVar' name='ac' value="{{acType}}"
+                                           ng-change="c.onEquipmentSelect(acType, 'comfort')"> {{acType}}
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <h5>Autoradio</h5>
+                            <div ng-repeat="radioType in c.radioTypes">
+                                <label>
+                                    <input type="radio" ng-model='c.changeRadioVar' name='autoradio' value="{{radioType}}"
+                                           ng-change="c.onEquipmentSelect(radioType, 'comfort')"> {{radioType}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br style="clear: left">
+
+                </div>
+                <br style="clear: left">
+            </div>
+            <div class="new_ad_section">
+                <h3>Ostali podaci o vozilu</h3>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.traficYear.$invalid && !newAdForm.traficYear.$pristine }">
+                        <label>Vozilo u prometu od</label><br>
+                        <input type="number" name="traficYear" ng-model="c.ad.traficYear" min="1930" max="2020" placeholder="U prometu od">
+                        <p ng-show="(newAdForm.traficYear.$error.min || newAdForm.traficYear.$error.max) && !newAdForm.traficYear.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.firstRegistration.$invalid && !newAdForm.firstRegistration.$pristine }">
+                        <label>Godina prve registracije u RH</label><br>
+                        <input type="number" name="firstRegistration" ng-model="c.ad.firstRegistration" placeholder="Prva registracija" min="1930" max="2020">
+                        <p ng-show="(newAdForm.firstRegistration.$error.min || newAdForm.firstRegistration.$error.max) && !newAdForm.firstRegistration.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.registration.$invalid && newAdForm.registration.$touched }">
+                        <label>Registriran do*</label><br>
+                        <select name="registration" ng-model="c.ad.registration" required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="Nije registrirano">Nije registrirano</option>
+                            <option value="{{date}}" ng-repeat="date in c.getRegistrationDates()">{{date}}</option>
+                        </select>
+                        <p ng-show="newAdForm.registration.$invalid && newAdForm.registration.$touched" class="help-block">Odaberite istek registracije</p>
+                    </fieldset>
+                    <br style="clear: left">
+
+                </div>
+
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.fuelConsumption.$invalid && !newAdForm.fuelConsumption.$pristine }">
+                        <label>Potrošnja goriva (l/100km)</label><br>
+                        <input type="number" name="fuelConsumption" ng-model="c.ad.fuelConsumption" placeholder="Potrošnja goriva" min="1">
+                        <p ng-show="newAdForm.fuelConsumption.$error.min && !newAdForm.fuelConsumption.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.emisionCO2.$invalid && !newAdForm.emisionCO2.$pristine }">
+                        <label>Maksimalna emisija C0&sup2; (g/km)</label><br>
+                        <input type="number" name="emisionCO2" ng-model="c.ad.emisionCO2" placeholder="Emisija CO2" min="1">
+                        <p ng-show="newAdForm.emisionCO2.$error.min && !newAdForm.emisionCO2.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+
+                    <fieldset class="form-group">
+                        <label>Ekološka kategorija vozila</label><br>
+                        <select name="emissionCategory" ng-model="c.ad.emissionCategory">
+                            <option value="" selected>Odaberite</option>
+                            <option value="Euro 6">Euro 6</option>
+                            <option value="Euro 5">Euro 5</option>
+                            <option value="Euro 4">Euro 4</option>
+                            <option value="Euro 3">Euro 3</option>
+                            <option value="Euro 2">Euro 2</option>
+                            <option value="Euro 1">Euro 1</option>
+                            <option value="Euro ZX">Euro ZX</option>
+                        </select>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.km.$invalid && !newAdForm.km.$pristine }">
+                        <label>Prijeđeni kilometri*</label><br>
+                        <input type="number" name="km" ng-model="c.ad.km" placeholder="Prijeđeni kilometri" required min="0" maxlength="7">
+                        <p ng-show="newAdForm.km.$error.required && !newAdForm.km.$pristine" class="help-block">Unesite broj prijeđenih kilometara</p>
+                        <p ng-show="(newAdForm.km.$error.min || newAdForm.km.$error.maxlength) && !newAdForm.km.$error.required && !newAdForm.km.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.owner.$invalid && newAdForm.owner.$touched }">
+                        <label>Vlasnik*</label><br>
+                        <select name="owner" ng-model="c.ad.owner" required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="prvi">prvi</option>
+                            <option value="drugi">drugi</option>
+                            <option value="treci i više">treci i više</option>
+                        </select>
+                        <p ng-show="newAdForm.owner.$invalid && newAdForm.owner.$touched" class="help-block">Odaberite broj vlasnika</p>
+                    </fieldset>
+
+
+                    <fieldset class="form-group">
+                        <label>Boja</label><br>
+                        <select name="color" ng-model="c.ad.color">
+                            <option value="" selected>Odaberite</option>
+                            <option value="bež">bež</option>
+                            <option value="bijela">bijela</option>
+                            <option value="crna">crna</option>
+                            <option value="crvena">crvena</option>
+                            <option value="bordo crvena">bordo crvena</option>
+                            <option value="ljubičasta">ljubičasta</option>
+                            <option value="narančasta">narančasta</option>
+                            <option value="plava">plava</option>
+                            <option value="svijetlo plava">svijetlo plava</option>
+                            <option value="tamno plava">tamno plava</option>
+                            <option value="siva">siva</option>
+                            <option value="svijetlo siva">svijetlo siva</option>
+                            <option value="tamno siva">tamno siva</option>
+                            <option value="smeđa">smeđa</option>
+                            <option value="srebrna">srebrna</option>
+                            <option value="zelena">zelena</option>
+                            <option value="svijetlo zelena">svijetlo zelena</option>
+                            <option value="tamno zelena">tamno zelena</option>
+                            <option value="zlatna">zlatna</option>
+                            <option value="žuta">žuta</option>
+                        </select>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.vinNumber.$invalid && !newAdForm.vinNumber.$pristine }">
+                        <label>Broj šasije</label><br>
+                        <input type="text" name="vinNumber" ng-model="c.ad.vinNumber" minlength="11" placeholder="broj šasije" maxlength="17">
+                        <p ng-show="(newAdForm.vinNumber.$error.minlength || newAdForm.vinNumber.$error.maxlength ) && !newAdForm.vinNumber.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <label><input type="checkbox" name="garage" ng-model="c.ad.garaged">Garažiran</label>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <label> <input type="checkbox" name="serviceBook" ng-model="c.ad.serviceBook"/>Servisna
+                            knjiga</label>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+                <br style="clear: left">
+            </div>
+        </div>
+        <div name="tractorAd" ng-if="c.isAdType('Traktori')">
+            <div class="new_ad_section">
+                <h3>Opći podaci o vozilu</h3>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.brand.$invalid && newAdForm.brand.$touched }">
+                        <label>Marka traktora*</label>
+                        <select ng-model="c.ad.brand" name="brand" required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="{{brand.name}}" ng-repeat="brand in c.brands">{{brand.name}}</option>
+                        </select>
+                        <p ng-show="newAdForm.brand.$invalid && newAdForm.brand.$touched" class="help-block">Odaberite marku</p>
+                    </fieldset>
+
+                    <fieldset ng-if="c.ad.brand" class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.model.$invalid && !newAdForm.model.$pristine }">
+                        <label>Model*</label>
+                        <input type="text" name="model" ng-model="c.ad.model"
+                               ng-change="c.ad.title = (c.ad.brand ? (c.ad.brand + (c.ad.model ? ' ' + c.ad.model : '')) : '')"
+                               required placeholder="Model">
+                        <p ng-show="newAdForm.model.$error.required && !newAdForm.model.$pristine" class="help-block">Unesite model</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.year.$invalid && !newAdForm.year.$pristine }">
+                        <label>Godina proizvodnje*</label>
+                        <input type="number" name="year" ng-model="c.ad.year" min="1930" max="2020" placeholder="Godina proizvodnje" required>
+                        <p ng-show="newAdForm.year.$error.required && !newAdForm.year.$pristine" class="help-block">Unesite godinu</p>
+                        <p ng-show="(newAdForm.year.$error.min || newAdForm.year.$error.max) && !newAdForm.year.$error.required && !newAdForm.year.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+                    <br style="clear: left"/>
+                </div>
+
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.power.$invalid && !newAdForm.power.$pristine }">
+                        <label>Snaga motora (kW)*</label>
+                        <input type="number" name="power" ng-model="c.ad.power" required min="1" placeholder="Snaga">
+                        <p ng-show="newAdForm.power.$error.required && !newAdForm.power.$pristine" class="help-block">Unesite snagu motora</p>
+                        <p ng-show="newAdForm.power.$error.min && !newAdForm.power.$error.required && !newAdForm.power.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.cylindersVolume.$invalid && !newAdForm.cylindersVolume.$pristine }">
+                        <label>Radni obujam u cm&sup3;*</label>
+                        <input type="number" name="cylindersVolume" ng-model="c.ad.cylindersVolume" required min="1" placeholder="Radni obujam">
+                        <p ng-show="newAdForm.cylindersVolume.$error.required && !newAdForm.cylindersVolume.$pristine" class="help-block">Unesite radni obujam</p>
+                        <p ng-show="newAdForm.cylindersVolume.$error.min && !newAdForm.cylindersVolume.$error.required && !newAdForm.cylindersVolume.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.wh.$invalid && !newAdForm.wh.$pristine }">
+                        <label>Radni sati*</label>
+                        <input type="number" name="wh" ng-model="c.ad.wh" placeholder="Radni sati" required min="0" maxlength="5">
+                        <p ng-show="newAdForm.wh.$error.required && !newAdForm.wh.$pristine" class="help-block">Unesite broj radnih sati</p>
+                        <p ng-show="(newAdForm.wh.$error.min || newAdForm.wh.$error.maxlength) && !newAdForm.wh.$error.required && !newAdForm.wh.$pristine" class="help-block">Unos je neispravan/p>
+                    </fieldset>
+                    <br style="clear: left;">
+                </div>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.speed.$invalid && !newAdForm.speed.$pristine }">
+                        <label>Maksimalna brzina</label>
+                        <input type="number" name="speed" ng-model="c.ad.speed" min="0" maxlength="3" placeholder="Brzina">
+                        <p ng-show="(newAdForm.speed.$error.min || newAdForm.speed.$error.maxlength)  && !newAdForm.speed.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+                    <br style="clear: left;">
+                </div>
+            </div>
+            <div class="new_ad_section">
+                <h3>Oprema</h3>
+                <div id="tractor_equipment_section">
+                    <div ng-repeat="equipment in c.equipments">
+                        <label>
+                            <input type="checkbox" value="{{equipment}}"
+                                   ng-click="c.onEquipmentSelect(equipment, 'Traktori')"> {{equipment}}
+                        </label>
+                    </div>
+                </div>
+                <br style="clear: left;">
+            </div>
+            <div class="new_ad_section">
+                <h3>Ostali podaci o vozilu</h3>
+
+                <div class="data_row">
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.traficYear.$invalid && !newAdForm.traficYear.$pristine }">
+                        <label>Vozilo u prometu od</label>
+                        <input type="number" name="traficYear" ng-model="c.ad.traficYear" min="1930" max="2019" placeholder="U prometu od">
+                        <p ng-show="(newAdForm.traficYear.$error.min || newAdForm.traficYear.$error.max) && !newAdForm.traficYear.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.firstRegistration.$invalid && !newAdForm.firstRegistration.$pristine }">
+                        <label>Godina prve registracije u RH</label>
+                        <input type="number" name="firstRegistration" ng-model="c.ad.firstRegistration" min="1930" max="2019" placeholder="Prva registracija">
+                        <p ng-show="(newAdForm.firstRegistration.$error.min || newAdForm.firstRegistration.$error.max) && !newAdForm.firstRegistration.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.registration.$invalid && newAdForm.registration.$touched }">
+                        <label>Registriran do*</label>
+                        <select name="registration" ng-model="c.ad.registration" required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="Nije registrirano">Nije registrirano</option>
+                            <option value="{{date}}" ng-repeat="date in c.getRegistrationDates()">{{date}}</option>
+                        </select>
+                        <p ng-show="newAdForm.registration.$invalid && newAdForm.registration.$touched" class="help-block">Odaberite istek registracije</p>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.owner.$invalid && newAdForm.owner.$touched }">
+                        <label>Vlasnik*</label>
+                        <select name="owner" ng-model="c.ad.owner" required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="prvi">prvi</option>
+                            <option value="drugi">drugi</option>
+                            <option value="treci i više">treci i više</option>
+                        </select>
+                        <p ng-show="newAdForm.owner.$invalid && newAdForm.owner.$touched" class="help-block">Odaberite broj vlasnika</p>
+                    </fieldset>
+
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.vinNumber.$invalid && !newAdForm.vinNumber.$pristine }">
+                        <label>Broj šasije</label>
+                        <input type="text" name="vinNumber" ng-model="c.ad.vinNumber" minlength="5" maxlength="17" placeholder="Broj šasije">
+                        <p ng-show="(newAdForm.vinNumber.$error.minlength || newAdForm.vinNumber.$error.maxlength ) && !newAdForm.vinNumber.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+            </div>
+        </div>
+        <div name="pcAd" ng-if="c.isAdType('Računala')">
+            <div class="new_ad_section">
+                <h3>Opći podaci o računalu</h3>
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.brandSelect.$invalid && newAdForm.brandSelect.$touched }">
+                        <label>Marka računala*</label>
+                        <select ng-change="c.onBrandSelect(c.brand)" ng-model="c.brand" name="brandSelect"
+                                required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="{{brand.name}}" ng-repeat="brand in c.brands">{{brand.name}}</option>
+                        </select>
+                        <p ng-show="newAdForm.brandSelect.$invalid && newAdForm.brandSelect.$touched" class="help-block">Odaberite marku</p>
+                    </fieldset>
+
+                    <fieldset ng-if="c.brand=='Ostalo'" class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.brandTxt.$invalid && !newAdForm.brandTxt.$pristine }">
+                        <label>Marka računala*</label>
+                        <input type="text" name="brandTxt" ng-model="c.ad.brand"
+                               ng-change="c.ad.title = (c.ad.brand ? c.ad.brand : '') + (c.ad.model ? ' ' + c.ad.model: '');" required placeholder=" Marka">
+                        <p ng-show="newAdForm.brandTxt.$error.required && !newAdForm.brandTxt.$pristine" class="help-block">Unesite marku računala</p>
+                    </fieldset>
+
+                    <fieldset ng-if="c.ad.brand" class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.model.$invalid && !newAdForm.model.$pristine }">
+                        <label>Model*</label>
+                        <input type="text" name="model" ng-model="c.ad.model"
+                               ng-change="c.ad.title = (c.ad.brand ? c.ad.brand : '') + (c.ad.model ? ' ' + c.ad.model: '');" required placeholder=" Model">
+                        <p ng-show="newAdForm.model.$error.required && !newAdForm.model.$pristine" class="help-block">Unesite model</p>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.ram.$invalid && !newAdForm.ram.$pristine }">
+                        <label>Radna memorija (GB)*</label>
+                        <input type="number" name="ram" ng-model="c.ad.ram" required min="0" placeholder=" RAM">
+                        <p ng-show="newAdForm.ram.$error.required && !newAdForm.ram.$pristine" class="help-block">Unesite količinu RAM memorije</p>
+                        <p ng-show="newAdForm.ram.$error.min && !newAdForm.ram.$error.required && !newAdForm.ram.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.hd.$invalid && !newAdForm.hd.$pristine }">
+                        <label>Memorija tvrdog diska</label>
+                        <input type="number" name="hd" ng-model="c.ad.hd" required min="10" placeholder=" HD">
+                        <p ng-show="newAdForm.hd.$error.required && !newAdForm.hd.$pristine" class="help-block">Unesite količinu HD memorije</p>
+                        <p ng-show="newAdForm.hd.$error.min && !newAdForm.hd.$error.required && !newAdForm.hd.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.ssd.$invalid && !newAdForm.ssd.$pristine }">
+                        <label>SSD memorija</label>
+                        <input type="number" name="ssd" ng-model="c.ad.ssd"  min="0" placeholder=" SSD">
+                        <p ng-show="newAdForm.ssd.$error.min  && !newAdForm.ssd.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <br style="clear: left">
+                </div>
+
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.procesorBrand.$invalid && !newAdForm.procesorBrand.$pristine }">
+                        <label>Procesor*</label>
+                        <input type="text" name="procesorBrand" ng-model="c.ad.procesor" required placeholder=" Procesor">
+                        <p ng-show="newAdForm.procesorBrand.$error.required && !newAdForm.procesorBrand.$pristine" class="help-block">Unesite marku procesora</p>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+
+
+                <div class="data_row">
+
+                    <fieldset class="form-group">
+                        <label>Graficka kartica</label>
+                        <input type="text" name="graphic" ng-model="c.ad.graphic" placeholder=" Grafika">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <label>Veličina ekrana</label>
+                        <select name="ekran" ng-model="c.ad.screen">
+                            <option value="" selected>Odaberite</option>
+                            <option value=11.6>11.6"</option>
+                            <option value=11.6>12.5"</option>
+                            <option value=13.0>13.0"</option>
+                            <option value=13.3>13.3"</option>
+                            <option value=13.9>13.9"</option>
+                            <option value=14.0>14.0"</option>
+                            <option value=15.6>15.6"</option>
+                            <option value=17.3>17.3"</option>
+                        </select>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.year.$invalid && !newAdForm.year.$pristine }">
+                        <label>Godina proizvodnje</label>
+                        <input type="number" name="year" ng-model="c.ad.year" min="1990" max="2019" placeholder="Godina proizvodnje">
+                        <p ng-show="(newAdForm.year.$error.min || newAdForm.year.$error.max) && !newAdForm.year.$pristine"
+                           class="help-block">Unos je neispravan</p>
+                    </fieldset>
+                    <br style="clear: left">
+                </div>
+            </div>
+        </div>
+        <div name="mobileAd" ng-if="c.isAdType('Mobilni telefoni')">
+            <div class="new_ad_section">
+                <h3>Opći podaci o mobilnom telefonu</h3>
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.brandSelect.$invalid && newAdForm.brandSelect.$touched }">
+                        <label>Marka telefona*</label>
+                        <select ng-change="c.onBrandSelect(c.brand)" ng-model="c.brand" name="brandSelect" required>
+                            <option value="" selected>Odaberite</option>
+                            <option value="{{brand.name}}" ng-repeat="brand in c.brands">{{brand.name}}</option>
+                        </select>
+                        <p ng-show="newAdForm.brandSelect.$invalid && newAdForm.brandSelect.$touched" class="help-block">Odaberite marku</p>
+                    </fieldset>
+
+                    <fieldset ng-if="c.brand=='Ostalo'" class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.brand.$invalid && !newAdForm.brand.$pristine }">
+                        <label>Marka telefona*</label>
+                        <input type="text" name="brand" ng-model="c.ad.brand"
+                               ng-change="c.ad.title = (c.ad.brand ? c.ad.brand : '') + (c.ad.model ? ' ' + c.ad.model: '');" required placeholder=" Marka">
+                        <p ng-show="newAdForm.brand.$error.required && !newAdForm.brand.$pristine" class="help-block">Unesite marku telefona</p>
+                    </fieldset>
+
+                    <fieldset ng-if="c.ad.brand" class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.model.$invalid && !newAdForm.model.$pristine }">
+                        <label>Model*</label>
+                        <input type="text" name="model" ng-model="c.ad.model"
+                               ng-change="c.ad.title = (c.ad.brand ? c.ad.brand : '') + (c.ad.model ? ' ' + c.ad.model: '');" required placeholder=" Model">
+                        <p ng-show="newAdForm.model.$error.required && !newAdForm.model.$pristine" class="help-block">Unesite model</p>
+                    </fieldset>
+                    <br style="clear: left"/>
+                </div>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.ram.$invalid && !newAdForm.ram.$pristine }">
+                        <label>Radna memorija (GB)*</label>
+                        <input type="number" name="ram" ng-model="c.ad.ram" required min="0" placeholder=" RAM">
+                        <p ng-show="newAdForm.ram.$error.required && !newAdForm.ram.$pristine" class="help-block">Unesite količinu RAM memorije</p>
+                        <p ng-show="newAdForm.ram.$error.min && !newAdForm.ram.$error.required && !newAdForm.ram.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.hd.$invalid && !newAdForm.hd.$pristine }">
+                        <label>Memorija uređaja*</label>
+                        <input type="number" name="hd" ng-model="c.ad.hd" required min="1" placeholder="Memorija">
+                        <p ng-show="newAdForm.hd.$error.required && !newAdForm.hd.$pristine" class="help-block">Unesite količinu memorije</p>
+                        <p ng-show="newAdForm.hd.$error.min && !newAdForm.hd.$error.required && !newAdForm.hd.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <br style="clear: left"/>
+                </div>
+
+                <div class="data_row">
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.procesor.$invalid && !newAdForm.procesor.$pristine }">
+                        <label>Model prcesora*</label>
+                        <input type="text" name="procesor" ng-model="c.ad.procesor" required placeholder=" Model procesora">
+                        <p ng-show="newAdForm.prcesor.$error.required && !newAdForm.prcesor.$pristine" class="help-block">Unesite naziv procesora</p>
+                    </fieldset>
+                    <br style="clear: left"/>
+                </div>
+
+
+                <div class="data_row">
+                    <fieldset class="form-group">
+                        <label>Grafika</label>
+                        <input type="text" name="graphic" ng-model="c.ad.graphic" placeholder="Grafika">
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.screen.$invalid && !newAdForm.screen.$pristine }">
+                        <label>Veličina ekrana (")</label>
+                        <input type="number" name="screen" ng-model="c.ad.screen" min="1" placeholder="Veličina ekrana">
+                        <p ng-show="newAdForm.screen.$error.required && !newAdForm.screen.$pristine" class="help-block">Unesite veličinu ekrana</p>
+                        <p ng-show="newAdForm.screen.$error.min &&  !newAdForm.screen.$error.required && !newAdForm.screen.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+
+                    <fieldset class="form-group"
+                              ng-class="{ 'has-error' : newAdForm.year.$invalid && !newAdForm.year.$pristine }">
+                        <label>Godina proizvodnje</label>
+                        <input type="number" name="year" ng-model="c.ad.year" min="1990" max="2019" placeholder=" Godina proizvodnje">
+                        <p ng-show="(newAdForm.year.$error.min || newAdForm.year.$error.max) && !newAdForm.year.$pristine" class="help-block">Unos je neispravan</p>
+                    </fieldset>
+                    <br style="clear: left"/>
+                </div>
+            </div>
+        </div>
+        <div class="new_ad_section">
+            <h3>Podaci oglasa</h3>
+
+            <fieldset style="width: 50%; text-align: center; margin: 0 0 20px 5%;">
+                <label>Naslov</label><br>
+                <input type="text" name="title" placeholder="Naslov oglasa" ng-model="c.ad.title">
+                <p style="color: gray; margin-top: 5px;">Naslov se automatski generira i može se mijenajti.</p>
+            </fieldset>
+
+            <fieldset style="width: 80%;text-align: center; margin: 0 0 20px 5%;">
+                <label>Opis</label><br>
+                <textarea style="resize: vertical; width: 90%; border: 1px solid gold;" placeholder="Opis vozila" type="text" name="desc" ng-model="c.ad.desc" rows="7" cols="80"></textarea>
+                <p style="color: gray; margin-top: 5px;">Ovdje možete napisati dodatne informacije o vašem automobilu.
+                    Opširniji opis Vašeg vozila pridonosi bržoj i uspješnijoj prodaji.</p>
+            </fieldset>
+
+            <fieldset style="width: 25%; text-align: center; margin: 0 0 20px 5%;" class="form-group"
+                      ng-class="{ 'has-error' : newAdForm.price.$invalid && !newAdForm.price.$pristine }">
+                <label>Cijena u kunama*</label><br>
+                <input type="number" name="price" ng-model="c.ad.price" min="1" required placeholder="Cijena">
+                <p ng-show="newAdForm.price.$error.required && !newAdForm.price.$pristine" class="help-block">Unesite cijenu vozila</p>
+                <p ng-show="newAdForm.price.$error.min && !newAdForm.price.$error.required && !newAdForm.price.$pristine" class="help-block">Unos je neispravan</p>
+            </fieldset>
+
+            <div class="data_row">
+                <fieldset class="data_row_location_fieldsets" class="form-group"
+                          ng-class="{ 'has-error' : newAdForm.county.$invalid && newAdForm.county.$touched }">
+                    <label>Županija*</label><br>
+                    <select ng-click="c.onClickCounty(c.ad.location.county)"
+                            ng-model="c.ad.location.county"
+                            name="county" required>
+                        <option selected value="">Odaberite</option>
+                        <option value="{{county.name}}" ng-repeat="county in c.counties">{{county.name}}</option>
+                    </select>
+                    <p ng-show="newAdForm.county.$invalid && newAdForm.county.$touched" class="help-block">Odaberite županiju</p>
+                </fieldset>
+
+                <fieldset class="data_row_location_fieldsets" ng-if="c.ad.location.county" class="form-group"
+                          ng-class="{ 'has-error' : newAdForm.city.$invalid && newAdForm.city.$touched }">
+                    <label>Grad/Općina*</label><br>
+                    <select ng-model="c.ad.location.city" name="city" required>
+                        <option selected value="">Odaberite</option>
+                        <option value="{{city.name}}" ng-repeat="city in c.cities">{{city.name}}</option>
+                    </select>
+                    <p ng-show="newAdForm.city.$invalid && newAdForm.city.$touched" class="help-block">Odaberite grad/općinu.</p>
+                </fieldset>
+                <br style="clear: left">
+            </div>
+
+            <fieldset style="width: 25%; text-align: center; margin: 0 0 20px 5%;" class="form-group"
+                      ng-class="{ 'has-error' : newAdForm.contact.$invalid && !newAdForm.contact.$pristine }">
+                <label>Kontakt broj telefona/mobitela*</label><br>
+                <input type="text" name="contact" ng-model="c.ad.contact" minlength="6" required placeholder="Kontakt">
+                <p ng-show="newAdForm.contact.$error.required && !newAdForm.contact.$pristine"
+                   class="help-block">Unesite broj telefona/mobitela</p>
+                <p ng-show="newAdForm.contact.$error.minlength && !newAdForm.contact.$error.required && !newAdForm.contact.$pristine"
+                   class="help-block">Unos je neispravan</p>
+            </fieldset>
+
+        </div>
+        <button style="width:100%;" type="submit" class="btn btn-secondary" ng-disabled="newAdForm.$invalid">Spremi</button>
+    </div>
+
+    </form>
+</div>
+
+

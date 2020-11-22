@@ -1,13 +1,12 @@
 class AuthenticationService {
 
-    constructor($http, $state, $rootScope){
+    constructor($http, $state, $rootScope, $timeout){
         this.http=$http;
         this.user=null;
         this.state=$state;
         this.rootScope=$rootScope;
+        this.timeout=$timeout;
         this.token='';
-
-
     }
 
 
@@ -23,6 +22,10 @@ class AuthenticationService {
         return this.token;
     }
 
+    getUserById(id){
+        return this.http.get('/authenticate/user/'+id);
+    }
+
     login(user){
         this.http.post('/authenticate/login',{user:user}).then((d) => {
             this.rootScope.$broadcast('auth_message', d.data);
@@ -31,7 +34,9 @@ class AuthenticationService {
                 this.token=d.data.token;
                 sessionStorage.setItem('token',this.token);
                 this.rootScope.$broadcast('login_status', true);
-                this.state.go('home');
+                this.timeout(()=>{
+                    this.state.go('account');
+                },1000);
             }else{
                 this.rootScope.$broadcast('login_status', false);
             }

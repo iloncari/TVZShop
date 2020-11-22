@@ -76,5 +76,15 @@ module.exports = function (app, express, db, jwt, secret, bcrypt) {
         });
     });
 
+    authRouter.route('/user/:id').get(function (req, res) {
+        db.collection('users').find({_id: ObjectId(req.params.id)}).toArray(function (err, rows) {
+            if (!err) {
+                res.json({status: 200, user: rows[0]});
+            } else {
+                res.json({status: 404});
+            }
+        });
+    });
+
     return authRouter;
 }

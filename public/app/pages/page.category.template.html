@@ -1,0 +1,50 @@
+<div class="container_ad_category">
+    <brand-list category="{{c.type}}"></brand-list>
+    <section>
+    <filter category="{{c.type}}"></filter>
+        <div id="advertisements_category">
+            <div class="ad_number">
+                <div class="ad_number_div">
+                    {{c.advertisements.length}} oglasa
+                </div>
+                <div class="ad_brand_div">
+                    {{c.adTitle}}
+                </div>
+                <br style="clear: left;"/>
+            </div>
+            <p id="advertisements_no_data" ng-if="c.advertisements.length==0">Trenutno nema oglasa koji zadovoljavaju Vaše kriterije!</p>
+            <div id="advertisement_item" ng-repeat="advertisement in c.advertisements">
+                <div ui-sref="detail({adId:advertisement.id})">
+                    <h4>{{advertisement.title}}</h4>
+                    <br>
+                    <p class="ad_info" ng-if="advertisement.type==='Automobili'">
+                        Rabljeno vozilo, {{advertisement.km}} km<br>
+                        Godište automobila: {{advertisement.year}}<br>
+                    </p>
+                    <p class="ad_info" ng-if="advertisement.type==='Traktori'">
+                        Rabljeno vozilo, {{advertisement.wh}} radnih sati<br>
+                        Godište traktora: {{advertisement.year}}<br>
+                    </p>
+                    <p class="ad_info" ng-if="advertisement.type==='Mobilni telefoni' || advertisement.type==='Računala'">
+                        <span ng-if="advertisement.year">Uređaj proizveden {{advertisement.year}}</span><br>
+                        <span>Procesor: {{advertisement.procesor}}</span><br>
+                        <span>RAM: {{advertisement.ram}} GB</span><br>
+                        <span ng-if="advertisement.graphic">Grafika: {{advertisement.graphic}}<br></span>
+                    </p>
+                    <p class="ad_info">
+                        Lokacija: {{advertisement.location.city}},{{advertisement.location.county}}<br>
+                        <span style="color: gray;" >Objavljen: {{advertisement.date}}</span>
+                    </p>
+                    <p class="ad_price">{{advertisement.price}} kn</p>
+                    <br style="clear: both;"/>
+                </div>
+            </div>
+        </div>
+        <br style="clear: left"/>
+    </section>
+</div>
+
+
+
+
+

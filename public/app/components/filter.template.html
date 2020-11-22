@@ -1,0 +1,93 @@
+<form id="filter_form" name="filterForm" ng-submit="c.filter()">
+    <h3>Filtriraj</h3>
+    <fieldset">
+        <label>Marka</label>
+        <select ng-click="c.onBrandSelect(c.filter.brand)" ng-model="c.filter.brand" name="brand">
+            <option value=""  selected>Odaberite</option>
+            <option  value ="{{brand.name}}" ng-repeat="brand in c.brands">{{brand.name}}</option>
+        </select>
+    </fieldset>
+    <fieldset ng-if="c.filter.brand && c.isAdType('Automobili')">
+        <label>Model</label>
+        <select name="model" ng-model="c.filter.model">
+            <option value=""  selected>Odaberite</option>
+            <option  value = "{{model.name}}" ng-repeat="model in c.models">{{model.name}}</option>
+        </select>
+    </fieldset>
+    <fieldset>
+        <label>Cijena</label>
+        <input type="number" name="minPrice" ng-model="c.filter.minPrice">
+        <p>do</p>
+        <input type="number" name="maxPrice" ng-model="c.filter.maxPrice">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Automobili') || c.isAdType('Traktori')">
+        <label>Godina proizvodnje</label>
+        <select name="year" ng-model="c.filter.minYear">
+                <option value=""  selected>Odaberite</option>
+                <option  value = "{{year}}" ng-repeat="year in c.getYears()">{{year}}</option>
+            </select>
+        <p>do</p>
+        <select name="year" ng-model="c.filter.maxYear">
+                <option value=""  selected>Odaberite</option>
+                <option  value = "{{year}}" ng-repeat="year in c.getYears()">{{year}}</option>
+            </select>
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Automobili')" id="filter_km">
+        <label>Prijeđeni kilometri</label>
+        <input type="number" name="minKm" ng-model="c.filter.minKm">
+        <p>do</p>
+        <input type="number" name="maxKm" ng-model="c.filter.maxKm">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Traktori')">
+        <label>Radni sati</label>
+        <input type="number" name="minWh" ng-model="c.tractor.minWh">
+        <p>do</p>
+        <input type="number" name="maxWh" ng-model="c.tractor.maxWh">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Automobili') || c.isAdType('Traktori')">
+        <label>Snaga motora</label>
+        <input type="number" name="minPower" ng-model="c.filter.minPower">
+        <p>do</p>
+        <input type="number" name="maxPower" ng-model="c.filter.maxPower">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Automobili')" cla="filter_fuelType">
+        <label>Vrsta goriva</label>
+        <select name="vrstaMotora" ng-model="c.filter.fuelType">
+            <option value="" selected>Odaberite</option>
+            <option ng-repeat="fuelType in c.fuelTypes" value="{{fuelType}}">{{fuelType}}</option>
+        </select>
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Računala') || c.isAdType('Mobilni telefoni')">
+        <label>RAM</label>
+        <input type="number" name="minRAM" ng-model="c.filter.minRAM">
+        <p>do</p>
+        <input type="number" name="maxRAM" ng-model="c.filter.maxRAM">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Računala') || c.isAdType('Mobilni telefoni')">
+        <label>Tvdi disk</label>
+        <input type="number" name="minHD" ng-model="c.filter.minHD">
+        <p>do</p>
+        <input type="number" name="maxHD" ng-model="c.filter.maxHD">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Računala')" id="filter_ssd">
+        <label>SSD</label>
+        <input type="number" name="minSSD" ng-model="c.filter.minSSD">
+        <p>do</p>
+        <input type="number" name="maxSSD" ng-model="c.filter.maxSSD">
+        <br style="clear: both;">
+    </fieldset>
+    <fieldset ng-if="c.isAdType('Mobilni telefoni') || c.isAdType('Računala')" >
+        <label>Veličina zaslona</label>
+        <input type="number" name="minScreen" ng-model="c.filter.minScreen">
+        <p>do</p>
+        <input type="number" name="maxScreen" ng-model="c.filter.maxScreen">
+        <br style="clear: both;">
+    </fieldset>
+    <button type="submit" class="btn btn-secondary">Pretraži</button>
+</form>
