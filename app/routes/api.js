@@ -141,6 +141,7 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
         });
     });
 
+
     apiRouter.route('/advertisement/:id').put(function (req, res) {
         db.collection('advertisement').updateOne({
             _id: ObjectId(req.params.id)

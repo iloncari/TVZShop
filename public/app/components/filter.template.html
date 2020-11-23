@@ -1,6 +1,6 @@
-<form id="filter_form" name="filterForm" ng-submit="c.filter()">
+<form id="filter_form" name="filterForm" ng-submit="c.onFilterClick()">
     <h3>Filtriraj</h3>
-    <fieldset">
+    <fieldset>
         <label>Marka</label>
         <select ng-click="c.onBrandSelect(c.filter.brand)" ng-model="c.filter.brand" name="brand">
             <option value=""  selected>Odaberite</option>
@@ -54,7 +54,7 @@
         <input type="number" name="maxPower" ng-model="c.filter.maxPower">
         <br style="clear: both;">
     </fieldset>
-    <fieldset ng-if="c.isAdType('Automobili')" cla="filter_fuelType">
+    <fieldset ng-if="c.isAdType('Automobili')" name="filter_fuelType">
         <label>Vrsta goriva</label>
         <select name="vrstaMotora" ng-model="c.filter.fuelType">
             <option value="" selected>Odaberite</option>

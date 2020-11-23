@@ -1,89 +1,90 @@
 /*GLOBAL*/
 body{
-    font-family:"Droid Sans Mono" ;
-    height: 100%;
+    font-family:Verdana,sans-serif;
     background:url('../img/naslovnica_pozadina.png') repeat;
-    background-color: beige;
+    background-color: #edf5e7;
 }
-#main{
-    border:1px solid gold;
-    margin:  30px auto;
-    width: 80%;
-    background-color: aliceblue;
-}
-/**
-#container_home{
-    height: 100%;
-    margin:20px auto;
-    width:98%;
-}
-**/
-.container_ad_category, #container_account{
-    height: 100%;
-    margin:20px auto;
-    width:90%;
+.center-text{
+    text-align: center;
 }
 
-/* page.home.template.html*/
-/*showcase home mail title*/
+.text-small{
+    font-size:14px;
+}
+
+.text-medium{
+    font-size:18px!important;
+}
+
+.text-large{
+    font-size:24px;
+}
+
+.hover-opacity:hover{
+    opacity:0.60
+}
+
+/*page.home.template.html*/
 #showcase{
-    text-align:center;
-}
-
-#showcase h3{
-    margin-top:50px;
-    font-size:30px;
-    margin-bottom:30px;
-}
-
-#showcase p{
-    font-size:20px;
+    color:#000;
+    background-color:#f3fffe;
+    padding: 30px 0 30px 0;
 }
 
 #showcase span{
     color: gold;
 }
-
-/*categoty boxes from main page*/
-.boxes{
-    width: 90%;
+#showcase p{
+    font-size:15px;
+    padding-top: 10px;
+}
+#showcase h3{
+    font-size:20px;
+    margin-bottom:30px;
+}
+.center-content{
     margin: 0 auto;
-    text-align: center;
 }
-#car_box, #tractor_box, #pc_box, #mobile_box{
-    border-radius: 8px;
-    border: 3px solid gold;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    width: 40%;
-    height: 170px;
+.width-50{
+    width: 50%;
+}
+
+#basket{
+    font-size: 50px;
+    width: 20%;
     float: left;
+   margin-right: 15px;
 }
-#car_box{
-    background:url('../img/home_car.jpg') no-repeat;
-    background-position: center center;
-    background-size:cover;
-}
-#tractor_box{
-    background:url('../img/home_tractor.jpg') no-repeat;
-    background-position: center center;
-    background-size:cover;
-}
-#pc_box{
-     background:url('../img/home_pc.jpg') no-repeat;
-    background-position: center center;
-    background-size:cover;
 
- }
-#mobile_box{
-    background:url('../img/home_mobile.jpg') no-repeat;
-    background-position: center center;
-    background-size:cover;
+#basket:hover{
+    color: gold;
+}
+
+#main-title{
+    font-size: 10px;
+}
+
+/*categories*/
+#categories{
+    margin: 0 auto;
+    background: white;
+    padding: 15px 15px 250px 15px;
 
 }
-#car_box h4, #tractor_box h4, #pc_box h4, #mobile_box h4{
+
+#categories h3, #home-ads h3{
+    margin-bottom: 50px;
+}
+
+.category-box{
+    float: left;
+    margin: 0 5px 0 5px;
+    width: 24%;
+    height: 150px;
+
+}
+
+.category-box h4{
     margin-left: 10px;
     margin-right: 10px;
     font-weight: bold;
@@ -92,13 +93,81 @@ body{
     color: gold;
     letter-spacing: 3px;
 }
-#car_box p, #tractor_box p, #pc_box p, #mobile_box p{
+.category-box p{
     margin: 0 auto;
     margin-bottom: 20px;
     font-weight: bold;
     width: 90%;
     color: white;
 }
+
+.center-background{
+    background-position: center center;
+    background-size:cover;
+}
+
+/*ad list*/
+#home-ads{
+      margin: 0 auto;
+      background: #e1e3d0;
+      padding: 15px 15px 15px 15px;
+  }
+
+#advertisements{
+    padding: 5px 10px 5px 10px;
+}
+
+#advertisement_item{
+    padding: 0px 5px 2px 5px;
+    height: 250px;
+                                            margin-bottom: 10px;
+    border: 1px solid lightgray;
+    background: #f3fffe;
+}
+
+#advertisement_item h4{
+    letter-spacing: 4px;
+    font-size: 22px;
+}
+
+
+
+
+
+
+#ad-image{
+    width: 20%;
+    height: 100%;
+    float: left;
+    margin-right: 5%;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
+
+#ad-data-infos{
+    width: 60%;
+    height: 200px;
+    margin: 0 auto;
+    float: left;
+    text-align: center;
+    vertical-align: center;
+    font-size: 12px;
+    line-height: normal;
+}
+#ad-data-price{
+    width: 15%;
+    float: left;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+#ad-data-all img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+
 
 /*page.login.template.html & page.register.template.html*/
 .container_auth{
@@ -129,9 +198,9 @@ body{
 }
 
 .container_auth div form fieldset input, .container_auth div form fieldset select{
-     width: 70%;
+    width: 70%;
     height: 35px;
- }
+}
 #login_msg, #register_msg{
     width: 60%;
     padding: 10px;
@@ -152,6 +221,189 @@ body{
     font-size: 14px;
     margin: 50px auto;
 }
+
+.container_auth button {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/*account page*/
+/* Style the tab */
+#account-tabs {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+#account-tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+#account-tabs button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+#account_info_table{
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    box-shadow: 2px 2px 2px 2px lightgray;
+    border-radius: 2px;
+}
+#account_info_table p{
+    margin: 0;
+    padding: 5px;
+
+}
+
+#account-tabs button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/*category*/
+filter{
+    margin: 0 0.5% 0 0.5%;
+    width: 24%;
+    float: left;
+}
+
+#ad-list-category{
+    width: 70%;
+    float: left;
+}
+
+
+/*brandList.template.html*/
+#brand_list{
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px 2px lightgray;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
+#brand_list_intro_text{
+    padding: 5px;
+    border: 1px solid lightgray;
+    background: lavender;
+}
+.brand_list_section {
+    float: left;
+    width: 10%;
+}
+.brand_list_item{
+    font-weight: bold;
+    text-align: center;
+    font-size: 28px;
+    color: blue;
+}
+
+/*filterCars.template.html*/
+#filter_form{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f7fffe;
+    box-shadow: 2px 2px 2px 2px lightgray;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
+
+#filter_form h3{
+    background-color: lavender;
+    text-align: center;
+    margin: 0px 0px 5px 0px;
+    padding: 5px;
+    border-bottom: 1px solid lightgray;
+}
+
+#filter_form fieldset{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+#filter_form select{
+    width: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
+    height: 35px;
+}
+#filter_form fieldset label{
+    width: 100%;
+    text-align: center;
+}
+
+#filter_form input, #filter_form select{
+    float: left;
+    width: 40%;
+    margin-left: 1.6%;
+    margin-right: 1.6%;
+}
+#full_width{
+    width: 80%;
+}
+#filter_form p{
+    float: left;
+    width: 10%;
+    margin-left: 1.6%;
+    margin-right: 1.6%;
+}
+#filter_form button{
+    width: 100%;
+}
+
+#full_width{
+    width: 80%;
+}
+
+/*counters*/
+#ad-number-div{
+    width: 40%;
+    float: left;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    font-size: 17px;
+    text-align: left;
+}
+#ad-brand_div{
+    width: 60%;
+    float: left;
+    text-align: right;
+    padding-top: 5px;
+    font-size: 17px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    border-left: 1px solid lightgray;
+}
+#ad-number{
+    background: lavender;
+}
+
+
 
 /*page.advertisement.template.html*/
 #container_advertisement{
@@ -215,12 +467,12 @@ body{
     padding: 0;
 }
 .new_ad_section fieldset{
-     width: 25%;
-     float: left;
-     padding: 0;
-     margin: 0 4.16% 30px 4.16% ;
-     text-align: center;
- }
+    width: 25%;
+    float: left;
+    padding: 0;
+    margin: 0 4.16% 30px 4.16% ;
+    text-align: center;
+}
 
 
 .data_row_location_fieldsets{
@@ -259,265 +511,10 @@ body{
 
 
 
-/*page.category.template.html*/
-filter{
-    margin: 0 0.5% 0 0.5%;
-    width: 24%;
-    float: left;
+/*footer*/
+footer{
+    color:#000;
+    background-color:#f1f1f1;
+    padding: 60px 0 60px 0;
+    font-size: 24px;
 }
-/*ad item box*/
-#advertisements_category{
-    margin: 0 0.5% 0 0.5%;
-    width: 74%;
-    float: left;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-    border: 1px solid lightgray;
-}
-
-/*counter for ads*/
-.ad_number_div{
-    width: 40%;
-    float: left;
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-bottom: 5px;
-    font-size: 17px;
-    text-align: left;
-}
-.ad_brand_div{
-    width: 60%;
-    float: left;
-    text-align: right;
-    padding-top: 5px;
-    font-size: 17px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    border-left: 1px solid lightgray;
-}
-.ad_number{
-    background: lavender;
-}
-
-#advertisements_no_data{
-    text-align: center;
-    font-size: 17px;
-    margin: 20px 0 10px 0;
-}
-
-/*one ad item*/
-.advertisement_item{
-    border: 1px solid lightgray;
-    padding: 5px;
-    background: #f7fffe;
-    margin: 5px 10px 2px 10px;
-}
-.advertisement_item h4{
-    letter-spacing: 2px;
-    font-size: 22px;
-}
-.ad_info, .ad_price{
-    font-size: 12px;
-    line-height: normal;
-}
-.ad_price{
-    float: right;
-    font-weight: bold;
-}
-
-/*brandList.template.html*/
-#brand_list{
-    border: 1px solid lightgray;
-    margin-bottom: 20px;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-    border: 1px solid lightgray;
-}
-#brand_list_intro_text{
-    padding: 5px;
-    border: 1px solid lightgray;
-    background: lavender;
-}
-.brand_list_section {
-    float: left;
-    width: 10%;
-}
-.brand_list_item{
-    font-weight: bold;
-    text-align: center;
-    font-size: 28px;
-    color: blue;
-}
-
-/*filterCars.template.html*/
-#filter_form{
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: #f7fffe;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-    border: 1px solid lightgray;
-}
-
-#filter_form h3{
-    background-color: lavender;
-    text-align: center;
-    margin: 0px 0px 5px 0px;
-    padding: 5px;
-    border-bottom: 1px solid lightgray;
-}
-
-#filter_form fieldset{
-    width: 100%;
-    height: 100%;
-    margin-bottom: 5px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid lightgray;
-}
-#filter_form select{
-   width: 20%;
-    margin-left: 15%;
-    margin-right: 15%;
-    height: 35px;
-}
-#filter_form fieldset label{
-    width: 100%;
-    text-align: center;
-}
-
-#filter_form input, #filter_form select{
-    float: left;
-    width: 40%;
-    margin-left: 1.6%;
-    margin-right: 1.6%;
-}
-#full_width{
-    width: 80%;
-}
- #filter_form p{
-    float: left;
-    width: 10%;
-    margin-left: 1.6%;
-    margin-right: 1.6%;
-}
-#filter_form button{
-    width: 100%;
-}
-
-#full_width{
-    width: 80%;
-}
-
-
-/*page.details.template.hrml*/
-/*as title, price, id, date*/
-#ad_detail_title_section{
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid lightgray;
-}
-
-#ad_detail_title_section h3{
-    border-bottom: 1px solid lightgray;
-    margin-bottom:  10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-}
-
-#ad_detail_title_section div{
-    padding-right: 15px;
-    float: right;
-}
-
-#ad_detail_title_section p{
-    padding-left: 15px;
-    float: left;
-}
-/*ad data table on left*/
-#container_ad_data section {
-    float: left;
-    width: 49%;
-    margin: 20px 0 0 15px;
-    padding: 0;
-}
-#container_ad_data aside{
-    float: left;
-    width: 49%;
-    margin: 0;
-    padding: 0;
-    position: relative;
-}
-#ad_data_table{
-    margin: 0 0 20px 0;
-    padding: 10px;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-}
-/*every item in left table*/
-#ad_data_table p{
-    margin: 0;
-    box-shadow: 1px 1px 1px 1px lightgray;
-    padding: 5px;
-
-}
-/*ad image preview*/
-#container_ad_data img{
-    width: 90%;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-    margin: 20px 5% 0px 5%;
-}
-
-/*contact container*/
-#container_ad_data #ad_contact{
-    padding: 5px;
-    width: 90%;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 4px;
-    margin-top: 20px;
-    margin-left: 5%;
-}
-
-
-/*page.account.template.html*/
-/*user info table*/
-#account_info_table{
-    margin: 0 0 20px 0;
-    padding: 10px;
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-}
-#account_info_table p{
-    margin: 0;
-    box-shadow: 1px 1px 1px 1px lightgray;
-    padding: 5px;
-
-}
-/*ads section*/
-#container_account section{
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 8px;
-    border: 1px solid lightgray;
-    margin: 0;
-}
-#container_account section h3{
-    padding:5px;
-    background: lavender;
-    margin: 0px;
-}
-
-
-.account_ad_category{
-    box-shadow: 2px 2px 2px 2px lightgray;
-    border-radius: 4px;
-    border: 1px solid lightgray;
-    margin: 10px;
-}
-
-.account_ad_category h4{
-    padding-left: 10px;
-}
-
-
-

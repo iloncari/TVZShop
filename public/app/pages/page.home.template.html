@@ -1,60 +1,40 @@
-<div class="container">
+<div>
     <section id="showcase">
-        <h3><span>TVZ Shop</span> - Vaša veza do prodavača!</h3>
-        <p>Automobili, traktori, prijenosna računala, mobilni telefoni - sve na jednom mjestu.</p>
-    </section>
-    <main>
-        <section class="boxes">
-            <div ui-sref="category({categoryId:'Automobili'})" id="car_box">
-                <h4>Automobili</h4>
-                <p>Pronađite automobil u nekoliko klikova</p>
-            </div>
-            <div  ui-sref="category({categoryId:'Traktori'})" id="tractor_box">
-                <h4>Traktori</h4>
-                <p>Traktori svih marki i modela</p>
-            </div>
-            <br style="clear: both"/>
-        </section>
-        <section style="padding-bottom: 50px;" class="boxes">
-            <div  ui-sref="category({categoryId:'Mobilni telefoni'})" id="pc_box">
-                <h4>Prijenosna računala</h4>
-                <p>Gaming ili ne, imamo sve</p>
-            </div>
-            <div  ui-sref="category({categoryId:'Računala'})" id="mobile_box">
-                <h4>Mobilni telefoni</h4>
-                <p>Pametni telefoni za Vas!</p>
-            </div> <br style="clear: both"/>
-        </section>
-    </main>
-
-    <aside>
-        <div class="advertisement_item" ng-repeat="advertisement in c.advertisements">
-            <div ui-sref="detail({adId:advertisement.id})">
-                <h4>{{advertisement.title}}</h4>
-                <br>
-                <p class="ad_info" ng-if="advertisement.type==='Automobili'">
-                    Rabljeno vozilo, {{advertisement.km}} km<br>
-                    Godište automobila: {{advertisement.year}}<br>
-                </p>
-                <p class="ad_info" ng-if="advertisement.type==='Traktori'">
-                    Rabljeno vozilo, {{advertisement.wh}} radnih sati<br>
-                    Godište traktora: {{advertisement.year}}<br>
-                </p>
-                <p class="ad_info" ng-if="advertisement.type==='Mobilni telefoni' || advertisement.type==='Računala'">
-                    <span ng-if="advertisement.year">Uređaj proizveden {{advertisement.year}}</span><br>
-                    <span>Procesor: {{advertisement.procesor}}</span><br>
-                    <span>RAM: {{advertisement.ram}} GB</span><br>
-                    <span ng-if="advertisement.graphic">Grafika: {{advertisement.graphic}}<br></span>
-                </p>
-                Lokacija: {{advertisement.location.city}},{{advertisement.location.county}}<br>
-                <span style="color: gray;" >Objavljen: {{advertisement.date}}</span>
-                </p>
-                <p class="ad_price">{{advertisement.price}} kn</p>
-                <br style="clear: both;"/>
+        <div class="center-content width-50">
+            <i class="fa fa-shopping-basket hover-opacity" id="basket" aria-hidden="true"></i>
+            <div id="main-title">
+                <h3><span>TVZ Shop</span> - Vaša veza do prodavača!</h3>
+                <p>Automobili, traktori, prijenosna računala, mobilni telefoni - sve na jednom mjestu.</p>
             </div>
         </div>
-    </aside>
+    </section>
 
+    <section id="categories">
+       <h3>Kategorije oglasa</h3>
+       <div id="categories-boxes" class="center-content" >
+           <div ui-sref="category({categoryId:'Automobili'})" style="background-image:url('../../assets/img/home_car.jpg');" class="center-text category-box center-text center-background">
+               <h4>Automobili</h4>
+               <p>Pronađite automobil u nekoliko klikova</p>
+           </div>
+           <div ui-sref="category({categoryId:'Traktori'})" style="background-image:url('../../assets/img/home_tractor.jpg');" class="category-box center-text center-background">
+               <h4>Traktori</h4>
+               <p>Traktori svih marki i modela</p>
+           </div>
+           <div ui-sref="category({categoryId:'Mobilni telefoni'})" style="background-image:url('../../assets/img/home_pc.jpg');" class="category-box center-text center-background">
+               <h4>Prijenosna računala</h4>
+               <p>Gaming ili ne, imamo sve</p>
+           </div>
+           <div ui-sref="category({categoryId:'Računala'})" style="background-image:url('../../assets/img/home_mobile.jpg');" class="category-box center-text center-background">
+               <h4>Mobilni telefoni</h4>
+               <p>Pametni telefoni za Vas!</p>
+           </div>
+       </div>
+   </section>
+
+    <section id="home-ads">
+        <h3>Istaknuti oglasi</h3>
+        <ad-list filter="{limit:2, status:'aktivan'}" title="" empty="Trenutno nema oglasa koji zadovoljavaju vaše kriterije" results='false'></ad-list>
+    </section>
 
 </div>
 

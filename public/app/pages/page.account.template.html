@@ -2,53 +2,23 @@
     <div id="account_info_table">
         <p><label>Korisnik: </label> {{c.user.firstname}} {{c.user.lastname}}</p>
         <p><label>Korisničko ime: </label> {{c.user.username}}</p>
-        <p ng-if="c.user.contact"><label>Kontakt: </label> {{c.user.contacz}}</p>
+        <p ng-if="c.user.contact"><label>Kontakt: </label> {{c.user.contact}}</p>
         <p ng-if="c.user.location"><label>Lokacija: </label> {{c.user.location.city}}, {{c.user.location.county}}</p>
     </div>
 
-    <section>
+    <section id="account-ads">
         <h3>Vaši oglasi</h3>
-        <div class="account_ad_category" ng-if="c.activeAdvertisements">
-            <h4>Aktivni oglasi</h4>
-            <p ng-if="c.activeAdvertisements.length==0">Trenutno nemate aktivnih oglasa!</p>
-            <div class="advertisement_item" ng-repeat="advertisement in c.activeAdvertisements">
-                <div ui-sref="detail({adId:advertisement.id})">
-                    <h4>{{advertisement.title}}</h4>
-                    <p>
-                        Kategorija oglasa: {{advertisement.type}}<br>
-                        Lokacija: {{advertisement.location.city}},{{advertisement.location.county}}<br>
-                        <span style="color: gray;" >Objavljen: {{advertisement.date}}</span><br>
-                        <span style="color: gray;" >Status: {{advertisement.status}}</span>
-                    </p>
-                    <div class="ad_price">
-                        <img style="height: 50px;" ng-src="{{advertisement.image}}"/>
-                        <span>{{advertisement.price}} kn</span>
-                    </div>
-                    <br style="clear: both;"/>
-                </div>
-                <br style="clear: both;"/>
-                <button type="button" class="btn btn-danger" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
-                <button type="button" class="btn btn-secondary" ng-click="c.markAsSold(advertisement._id)">Označi prodanim</button>
-            </div>
+        <div id="account-tabs">
+            <button class="tablinks" id="activeBtn" ng-click="c.openTab($event, 'active', 'aktivan')">Aktivni oglasi</button>
+            <button class="tablinks" ng-click="c.openTab($event, 'sold', 'prodan')">Prodani oglasi</button>
         </div>
-        <div class="account_ad_category" ng-if="c.soldAdvertisements">
-            <h4>Prodani oglasi</h4>
-            <p ng-if="c.soldAdvertisements.length==0">Trenutno nemate prodanih oglasa!</p>
-            <div class="advertisement_item" ng-repeat="advertisement in c.soldAdvertisements">
-                <div ui-sref="detail({adId:advertisement.id})">
-                    <h4>{{advertisement.title}}</h4>
-                    <p >
-                        Kategorija oglasa: {{advertisement.type}}<br>
-                        Lokacija: {{advertisement.location.city}},{{advertisement.location.county}}<br>
-                        <span style="color: gray;" >Objavljen: {{advertisement.date}}</span><br>
-                        <span style="color: gray;" >Status: {{advertisement.status}}</span>
-                    </p>
-                    <p class="ad_price">{{advertisement.price}} kn</p>
-                    <br style="clear: both;"/>
-                </div>
-                <button type="button" class="btn btn-danger" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
-            </div>
-        </div>
+    </section>
+
+    <section id="active" class="tabcontent" ng-if="c.selectedTab==='active'">
+        <ad-list results='false' filter="c.activeFilter" title="Aktivni oglasi" empty="Nemate aktivnih oglasa"></ad-list>
+    </section>
+    <section id="sold" class="tabcontent" ng-if="c.selectedTab==='sold'">
+        <ad-list results='false' filter="c.soldFilter" title="Prodani oglasi" empty="Nemate prodanih oglasa"></ad-list>
     </section>
 </div>
 

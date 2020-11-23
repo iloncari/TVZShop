@@ -43,12 +43,12 @@ tvzShopApp.component('filter', {
         });
 
         //u category da je fitrirano i salji rezultae
-        this.filter = function () {
+        this.onFilterClick = function () {
             this.filter.status='aktivan';
             this.filter.type=this.category;
-          AdvertisementService.getAds(this.filter).then((d)=>{
-              $rootScope.$emit('filtered_ads',d.data.advertisements);
-          });
+            console.log(this.filter);
+
+             $rootScope.$broadcast('filter_ads',this.filter);
         };
 
 

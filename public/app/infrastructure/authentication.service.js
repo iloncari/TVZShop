@@ -34,9 +34,7 @@ class AuthenticationService {
                 this.token=d.data.token;
                 sessionStorage.setItem('token',this.token);
                 this.rootScope.$broadcast('login_status', true);
-                this.timeout(()=>{
-                    this.state.go('account');
-                },1000);
+                this.state.go('home');
             }else{
                 this.rootScope.$broadcast('login_status', false);
             }
