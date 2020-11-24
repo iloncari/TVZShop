@@ -1,6 +1,6 @@
 tvzShopApp.component('advertisement', {
     templateUrl: './pages/page.advertisement.template.html',
-    controller: function (AdvertisementService,CityCountyService,BrandService, $state) {
+    controller: function (AdvertisementService,CityCountyService,BrandService, $state, AuthenticationService) {
         this.$onInit = function () {
             this.ad = {};
             this.adTypes =AdvertisementService.advertisementType;
@@ -9,11 +9,17 @@ tvzShopApp.component('advertisement', {
                     this.counties = d.data.counties;
                 }
             });
+            this.user = AuthenticationService.getUser();
         };
 
         this.onAdTypeSelect = function (adType) {
             this.ad={};
             this.ad.type=adType;
+            this.ad.contact=this.user.contactNumber;
+            this.onClickCounty(this.user.location.county);
+            this.ad.location={};
+            this.ad.location.county=this.user.location.county;
+
             BrandService.getBrand(adType).then((d) => {
                 if(d.data.status==200){
                     this.brands = d.data.brands;
@@ -142,6 +148,8 @@ tvzShopApp.component('advertisement', {
                 CityCountyService.fetchCities(county).then((d) => {
                     if(d.data.status==200){
                         this.cities = d.data.cities;
+                        if(this.user.location.county===county)
+                            this.ad.location.city=this.user.location.city;
                     }
                 });
             }

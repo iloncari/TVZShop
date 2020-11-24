@@ -36,6 +36,41 @@
         <ad-list filter="{limit:2, status:'aktivan'}" title="" empty="Trenutno nema oglasa koji zadovoljavaju vaše kriterije" results='false'></ad-list>
     </section>
 
+    <section id="contact">
+        <h3>O nama</h3>
+        <div id="about-us">
+            <div>
+                <p>TVZShop d.o.o</p>
+                <p>Vrbik 8, Zagreb</p>
+                <p>+385123123</p>
+                <p>admin.tvzshop@tvz.hr</p>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3213.9345181108474!2d15.968079153988583!3d45.795678910302705!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765d68b46826a57%3A0x3de3c29026449e1f!2sTVZ%20Dekanat%2C%20Vrbik%2C%20Zagreb!5e0!3m2!1shr!2shr!4v1606159891843!5m2!1shr!2shr" id="map"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+        <div id="contact-us">
+            <h3>Kontaktirajte nas</h3>
+            <form name="contactForm" ng-submit="c.sendMail(c.mail)">
+                <fieldset>
+                    <i class="fa fa-user icon"></i>
+                    <input type="text" name="name" ng-model="c.mail.name" placeholder="Ime i prezime">
+                </fieldset>
+                <fieldset>
+                    <i class="fa fa-envelope icon"></i>
+                    <input type="text" name="email" ng-model="c.mail.email" placeholder="Email">
+                </fieldset>
+                <fieldset>
+                    <i class="fa fa-envelope icon"></i>
+                    <input type="text" name="subject" ng-model="c.mail.subject" placeholder="Predmet">
+                </fieldset>
+                <fieldset>
+                    <i class="fa fa-envelope icon"></i>
+                    <textarea rows="4" cols="50" name="message" ng-model="c.mail.message" placeholder="Poruka"></textarea>
+                </fieldset>
+                <fieldset id="contact-btn">
+                <button type="submit" class="btn">Pošalji</button>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+
 </div>
-
-

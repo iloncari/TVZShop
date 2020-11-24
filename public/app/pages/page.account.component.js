@@ -8,7 +8,7 @@ tvzShopApp.component('account', {
             this.activeFilter.status='aktivan';
 
             this.soldFilter={};
-            this.soldFilter.userId = this.user._id;
+            this.soldFilter.userId = this._id;
             this.soldFilter.status='prodan';
 
             this.selectedTab='active';
@@ -17,6 +17,9 @@ tvzShopApp.component('account', {
 
         this.openTab = function (evt, tabId, status) {
             this.selectedTab=tabId;
+            if(!tabId)
+                this.selectedTab='active';
+
             let i, tablinks;
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {

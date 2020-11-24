@@ -20,7 +20,7 @@ class InterceptorService {
             sessionStorage.removeItem('token');
             this.state.go('login');
         }
-        console.log(this);
+        console.log(response);
 
         return this.q.reject(response);
     }

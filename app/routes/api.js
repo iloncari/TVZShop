@@ -24,22 +24,10 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
         });
     });
 
-    apiRouter.route('/advertisement/:id').get(function (req, res) {
-        console.log("/adve/id");
-        db.collection('advertisement').find({_id: ObjectId(req.params.id)}).toArray(function (err, rows) {
-            if (!err) {
-                console.log("doslo");
-                res.json({status: 200, advertisement: rows[0]});
-            } else {
-                console.log(err);
-                res.json({status: 404});
-            }
-        });
-    });
+
 
     apiRouter.route('/advertisement').get(function (req, res) {
         this.filter = {};
-
         if(req.query.type)
             this.filter.type = req.query.type;
 
@@ -131,20 +119,30 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
         if(req.query.limit){
             this.limit=req.query.limit;
         }
-        console.log(this.filter);
         db.collection('advertisement').find(this.filter).limit(parseInt(this.limit)).toArray(function (err, rows) {
+                if (!err) {
+                    res.json({status: 200, advertisements: rows});
+                } else {
+                    res.json({status: 404});
+                }
+            });
+    });
+    apiRouter.route('/details').get(function (req, res) {
+        db.collection('advertisement').find({_id: ObjectId(req.query.id)}).toArray(function (err, rows) {
             if (!err) {
-                res.json({status: 200, advertisements: rows});
+                res.json({status: 200, advertisement: rows[0]});
             } else {
+                console.log(err);
                 res.json({status: 404});
             }
         });
     });
 
+    apiRouter.route('/advertisement').put(function (req, res) {
+        req.body.ad._id=ObjectId(req.query.id);
 
-    apiRouter.route('/advertisement/:id').put(function (req, res) {
         db.collection('advertisement').updateOne({
-            _id: ObjectId(req.params.id)
+            _id: ObjectId(req.query.id)
         }, {
             $set: req.body.ad
         }, function (err, data) {
@@ -157,17 +155,17 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
     });
 
 
-    apiRouter.route('/advertisement/:id').delete(function (req, res) {
+
+    apiRouter.route('/advertisement').delete(function (req, res) {
         db.collection('advertisement').removeOne({
-            _id: ObjectId(req.params.id)
+            _id: ObjectId(req.query.id)
         }, function (err, data) {
             if (!err) {
-                res.json({status: 200, affectedRows: data.nModified});
+                res.json({status: 200, affectedRows: data.nModifiedd});
             } else
                 res.json({status: 500});
         });
     });
-
 
 
     apiRouter.route('/brand/:brandType').get(function (req, res) {

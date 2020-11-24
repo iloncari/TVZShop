@@ -14,10 +14,9 @@ class AdvertisementService {
          'autoradio/CD/MP3/DVD'];
     }
 
-    updateAd(ad){
-        return this.http.get("api/advertisement/"+ad._id, {ad:ad});
+    updateAd(id, ad){
+        return this.http.put('api/advertisement?id='+id, {ad:ad});
     }
-
     getAds(filter){
         let brand = filter.brand ? 'brand=' + filter.brand + '&' : '';
         let model = filter.model ? 'model=' + filter.model + '&' : '';
@@ -42,34 +41,26 @@ class AdvertisementService {
         let maxScreen = filter.maxScreen ? 'maxScreen=' + filter.maxScreen + '&' : '';
         let status = filter.status ? 'status=' + filter.status + '&' : '';
         let type = filter.type ? 'type=' + filter.type + '&' : '';
-        let limit = filter.limit ? 'limit=' + filter.limit + '&' : ''
+        let limit = filter.limit ? 'limit=' + filter.limit + '&' : '';
         let adId = filter.adId ? 'adId=' + filter.adId + '&' : '';
-        let id = filter.id ? 'id=' + filter.id + '&' : '';
         let userId = filter.userId ? 'userId=' + filter.userId + '&' : '';
         let queryParams = '?'+brand+model+minPrice+maxPrice+minYear+maxYear+minKm+maxKm+minPower+maxPower+fuelType+minWh+maxWh
-        +minRam+maxRam+minHd+maxHd+minSsd+maxSsd+maxScreen+minScreen+type+status+adId+limit+id+userId;
+        +minRam+maxRam+minHd+maxHd+minSsd+maxSsd+maxScreen+minScreen+type+status+adId+limit+userId;
         queryParams=queryParams.slice(0, -1);
         return this.http.get("api/advertisement"+queryParams);
     }
 
     getAdById(id) {
-        return this.http.get("api/advertisement/" + id);
+        return this.http.get("api/details?id="+id);
     }
 
-    deleteAd(id){
-        this.http.delete("api/advertisement/"+id);
+    deleteAdById(id){
+        return this.http.delete("api/advertisement?id="+id);
     }
 
     saveAd(ad){
         ad.userId=this.authenticationService.getUser()._id;
         ad.status='aktivan';
-        let result= '';
-        let characters= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let charactersLength = characters.length;
-        for ( var i = 0; i < 20; i++ ) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        ad.id=result;
         return this.http.post('api/advertisement', {ad: ad});
     }
 }

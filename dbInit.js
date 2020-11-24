@@ -33,11 +33,26 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('county').insertMany(counties, function (err, data) {
             if (!err) {
-                console.log("Zupanije uspješno inicijalizirane u bazu NJPOglasnikAppLoncaric pod kolekcijom zupanije\n");
+                console.log("Zupanije uspješno inicijalizirane u bazu\n");
             } else{
-                console.log("Error: Zupanije nisu  inicijalizirane u bazu NJPOglasnikAppLoncaric pod kolekcijom zupanije\n");
+                console.log("Error: Zupanije nisu  inicijalizirane\n");
             }
         });
+
+
+        let t = [
+            {status: 'u',
+            name:'name'}
+        ];
+
+        db.collection('test').insertMany(t, function (err, data) {
+            if (!err) {
+                console.log("t uspješno inicijalizirane u bazu\n");
+            } else{
+                console.log("Error: t nisu  inicijalizirane\n");
+            }
+        });
+
 
         let cities = [
             {
@@ -3572,9 +3587,9 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('city').insertMany(cities, function (err, data) {
             if (!err) {
-                console.log("Mjesta uspješno inicijalizirane u bazu NJPOglasnikAppLoncaric pod kolekcijom mjesta\n");
+                console.log("Mjesta uspješno inicijalizirane u bazu\n");
             } else
-                console.log("Error: Mjesta nisu  inicijalizirane u bazu NJPOglasnikAppLoncaric pod kolekcijom mjesta\n");
+                console.log("Error: Mjesta nisu  inicijalizirane u bazu\n");
         });
 
         let brands = [
@@ -3671,9 +3686,9 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('brand').insertMany(brands, function (err, data) {
             if (!err) {
-                console.log("Brandovi uspješno inicijalizirani u bazu NJPOglasnikAppLoncaric pod kolekcijom adveritisement\n");
+                console.log("Brandovi uspješno inicijalizirani u bazu\n");
             } else
-                console.log("Error: Brandovi nisu  inicijalizirani u bazu NJPOglasnikAppLoncaric pod kolekcijom adveritisement\n");
+                console.log("Error: Brandovi nisu  inicijalizirani u bazu\n");
         });
 
 
@@ -3978,9 +3993,9 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('model').insertMany(cars_model, function (err, data) {
             if (!err) {
-                console.log("Modeli uspješno inicijalizirani u bazu NJPOglasnikAppLoncaric pod kolekcijom adveritisement\n");
+                console.log("Modeli uspješno inicijalizirani u bazut\n");
             } else
-                console.log("Error: Modeli nisu  inicijalizirani u bazu NJPOglasnikAppLoncaric pod kolekcijom adveritisement\n");
+                console.log("Error: Modeli nisu  inicijalizirani u bazu\n");
         });
 
     }

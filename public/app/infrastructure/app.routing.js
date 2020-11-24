@@ -26,5 +26,5 @@ tvzShopApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
 
     $urlRouterProvider.otherwise('/');
- //  $httpProvider.interceptors.push('interceptorService');
+ // $httpProvider.interceptors.push('interceptorService');
 });

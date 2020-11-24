@@ -87,4 +87,4 @@ module.exports = function (app, express, db, jwt, secret, bcrypt) {
     });
 
     return authRouter;
-}
+};

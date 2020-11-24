@@ -14,9 +14,9 @@ tvzShopApp.component('adList', {
             </div>
     </section>
     <section id="advertisements">
-        <div id="advertisement_item" ui-sref="detail({adId:advertisement.id})" ng-repeat="advertisement in c.advertisements">
-            <h4>{{advertisement.title}}</h4>
-            <div id="ad-data-all">
+        <div id="advertisement_item" ng-repeat="advertisement in c.advertisements">
+            <h4 ui-sref="detail({adId:advertisement._id})">{{advertisement.title}}</h4>
+            <div ui-sref="detail({adId:advertisement._id})" id="ad-data-all">
                 <div id="ad-image">
                    <img ng-src="{{advertisement.image}}"/>
                 </div> 
@@ -36,8 +36,8 @@ tvzShopApp.component('adList', {
                     {{advertisement.price}} kn
                 </div>
             </div>
-             <button ng-if="this.filter.userId" type="button" class="btn btn-danger" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
-             <button ng-if="this.filter.userId && this.filter.status!='prodan'" type="button" class="btn btn-secondary" ng-click="c.markAsSold(advertisement._id)">Označi prodanim</button>
+             <button ng-if="c.filter.userId" type="button" class="btn btn-danger" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
+             <button ng-if="c.filter.userId && c.filter.status!='prodan'" type="button" class="btn btn-secondary" ng-click="c.markAsSold(advertisement._id)">Označi prodanim</button>
         </div>
     `,
     bindings: {
@@ -47,6 +47,7 @@ tvzShopApp.component('adList', {
         results: '@'
     },
     controller: function (AdvertisementService, $scope) {
+
         this.$onInit = function(){
             this.adTitle = this.title + " - svi";
             this.advertisements=[];
@@ -54,20 +55,18 @@ tvzShopApp.component('adList', {
         };
 
         this.getAds = function(filter){
-            AdvertisementService.getAds(filter).then((d)=> {
+           AdvertisementService.getAds(filter).then((d)=> {
                 this.advertisements = d.data.advertisements;
                 this.adTitle = this.advertisements.length===0 ? '' :  this.title + " - " + (filter.brand===undefined ? 'svi' : filter.brand);
             });
         };
 
-//iz kategorije je doslo da je u listi selecramn brand
         $scope.$on('brand_item_selected1', (e, brand) => {
             console.log("selecta brand "  + brand);
             this.filter.brand=brand;
             this.getAds(this.filter);
             this.adTitle = this.title + " - " + (brand==='' ? 'svi' : brand);
         });
-
 
 
         $scope.$on('filter_ads1', (e, f) => {
@@ -77,33 +76,27 @@ tvzShopApp.component('adList', {
         });
 
 
-
-
         this.markAsSold = function (adId) {
+
             let indx = this.advertisements.findIndex(ad => ad._id == adId);
             let ad = this.advertisements[indx];
             ad.status = 'prodan';
 
-
-                        this.advertisements.splice(indx, 1);
-
-            /**AdvertisementService.updateAd(ad).then((d) => {
+            AdvertisementService.updateAd(adId, ad).then((d) => {
                 if(d.data.status===201){
                     this.advertisements.splice(indx, 1);
                 }
             });
-             };**/
         };
 
         this.deleteAd = function (adId) {
-            // AdvertisementService.deleteAd(adId);
-
             let indx = this.advertisements.findIndex(ad => ad._id == adId);
             let ad = this.advertisements[indx];
-            if(ad){
-                this.advertisements.splice(indx, 1);
-                return;
-            }
+            AdvertisementService.deleteAdById(adId).then((d) => {
+               if(d.data.status===200){
+                   this.advertisements.splice(indx, 1);
+               }
+            });
         };
     },
     controllerAs:
