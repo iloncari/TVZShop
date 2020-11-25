@@ -11,6 +11,7 @@
         <div id="account-tabs">
             <button class="tablinks" id="activeBtn" ng-click="c.openTab($event, 'active', 'aktivan')">Aktivni oglasi</button>
             <button class="tablinks" ng-click="c.openTab($event, 'sold', 'prodan')">Prodani oglasi</button>
+            <button class="tablinks" ng-click="c.openTab($event, 'favorited', 'favorited')">Omiljeni oglasi</button>
         </div>
     </section>
 
@@ -19,6 +20,9 @@
     </section>
     <section id="sold" class="tabcontent" ng-if="c.selectedTab==='sold'">
         <ad-list results='false' filter="c.soldFilter" title="Prodani oglasi" empty="Nemate prodanih oglasa"></ad-list>
+    </section>
+    <section id="favorited" class="tabcontent" ng-if="c.selectedTab==='favorited'">
+        <ad-list results='false' filter="c.favoritedFilter" title="Omiljeni oglasi" empty="Nemate omiljenih oglasa"></ad-list>
     </section>
 </div>
 

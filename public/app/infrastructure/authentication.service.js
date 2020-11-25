@@ -26,6 +26,10 @@ class AuthenticationService {
         return this.http.get('/authenticate/user/'+id);
     }
 
+    updateUser(user){
+        return this.http.put('/authenticate/user?id='+user._id, {user:user});
+    }
+
     login(user){
         this.http.post('/authenticate/login',{user:user}).then((d) => {
             this.rootScope.$broadcast('auth_message', d.data);

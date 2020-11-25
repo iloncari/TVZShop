@@ -15,7 +15,9 @@ tvzShopApp.component('adList', {
     </section>
     <section id="advertisements">
         <div id="advertisement_item" ng-repeat="advertisement in c.advertisements">
-            <h4 ui-sref="detail({adId:advertisement._id})">{{advertisement.title}}</h4>
+            <div id="ad-item-title-section">
+                <h4 ui-sref="detail({adId:advertisement._id})">{{advertisement.title}}</h4>      
+            </div>     
             <div ui-sref="detail({adId:advertisement._id})" id="ad-data-all">
                 <div id="ad-image">
                    <img ng-src="{{advertisement.image}}"/>
@@ -36,8 +38,13 @@ tvzShopApp.component('adList', {
                     {{advertisement.price}} kn
                 </div>
             </div>
-             <button ng-if="c.filter.userId" type="button" class="btn btn-danger" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
-             <button ng-if="c.filter.userId && c.filter.status!='prodan'" type="button" class="btn btn-secondary" ng-click="c.markAsSold(advertisement._id)">Označi prodanim</button>
+            <!--
+            <button ng-if="false" type="button" class="btn btn-danger ad-btn" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
+             <button ng-if="false" type="button" class="btn btn-secondary ad-btn" ng-click="c.markAsSold(advertisement._id)">Označi prodanim</button>
+ -->
+                     <input ng-if="c.filter.userId" class="delete-btn" ng-click="c.deleteAd(advertisement._id)" style="background-color: #ff725e;" type="button" value="Izbriši">
+             <input ng-if="c.filter.userId && c.filter.status!='prodan'" class="sold-btn" ng-click="c.markAsSold(advertisement._id)" style="background-color: #92ff94;" type="button" value="Oznaci kao prodan">
+              <input ng-if="c.user" class="favorite-btn" ng-class="c.getFavoriteClass(advertisement._id)" ng-click="c.onFavoriteClick(advertisement._id)"  type="button" value="{{c.favoriteText}}">
         </div>
     `,
     bindings: {
@@ -46,11 +53,15 @@ tvzShopApp.component('adList', {
         empty: '@',
         results: '@'
     },
-    controller: function (AdvertisementService, $scope) {
+    controller: function (AdvertisementService,AuthenticationService, $scope) {
 
         this.$onInit = function(){
             this.adTitle = this.title + " - svi";
+            this.user = AuthenticationService.getUser();
             this.advertisements=[];
+            if(this.filter.adId  && Array.isArray(this.filter.adId) && this.filter.adId.length===0){
+                return;
+            }
             this.getAds(this.filter);
         };
 
@@ -62,7 +73,6 @@ tvzShopApp.component('adList', {
         };
 
         $scope.$on('brand_item_selected1', (e, brand) => {
-            console.log("selecta brand "  + brand);
             this.filter.brand=brand;
             this.getAds(this.filter);
             this.adTitle = this.title + " - " + (brand==='' ? 'svi' : brand);
@@ -70,10 +80,36 @@ tvzShopApp.component('adList', {
 
 
         $scope.$on('filter_ads1', (e, f) => {
-            console.log("aDlIST DOHVATI CU");
             this.filter = {};
             this.getAds(f);
         });
+
+        this.onFavoriteClick = function (adId) {
+            if(this.isInFavorites(adId)){
+                AdvertisementService.removeFromFavorites(adId, AuthenticationService.getUser());
+                let indx = this.user.favorites.findIndex(id => id == adId);
+                this.advertisements.splice(indx, 1);
+            }else {
+                AdvertisementService.markAdAsFavorite(adId, AuthenticationService.getUser());
+            }
+
+
+        };
+
+        this.getFavoriteClass = function (adId) {
+          return this.isInFavorites(adId) ? 'favorite-active' : '';
+        };
+
+        this.isInFavorites = function (adId) {
+            let indx = this.user.favorites.findIndex(id => id == adId);
+            if(indx===-1){
+                this.favoriteText='Dodaj u favorite';
+                return false;
+            }else{
+                this.favoriteText='Ukloni iz favorita';
+                return true;
+            }
+        };
 
 
         this.markAsSold = function (adId) {
@@ -81,6 +117,7 @@ tvzShopApp.component('adList', {
             let indx = this.advertisements.findIndex(ad => ad._id == adId);
             let ad = this.advertisements[indx];
             ad.status = 'prodan';
+
 
             AdvertisementService.updateAd(adId, ad).then((d) => {
                 if(d.data.status===201){
@@ -97,6 +134,7 @@ tvzShopApp.component('adList', {
                    this.advertisements.splice(indx, 1);
                }
             });
+
         };
     },
     controllerAs:

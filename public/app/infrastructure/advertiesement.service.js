@@ -14,9 +14,6 @@ class AdvertisementService {
          'autoradio/CD/MP3/DVD'];
     }
 
-    updateAd(id, ad){
-        return this.http.put('api/advertisement?id='+id, {ad:ad});
-    }
     getAds(filter){
         let brand = filter.brand ? 'brand=' + filter.brand + '&' : '';
         let model = filter.model ? 'model=' + filter.model + '&' : '';
@@ -42,16 +39,28 @@ class AdvertisementService {
         let status = filter.status ? 'status=' + filter.status + '&' : '';
         let type = filter.type ? 'type=' + filter.type + '&' : '';
         let limit = filter.limit ? 'limit=' + filter.limit + '&' : '';
-        let adId = filter.adId ? 'adId=' + filter.adId + '&' : '';
         let userId = filter.userId ? 'userId=' + filter.userId + '&' : '';
+
+        console.log(filter);
+        let adId ='';
+        if(filter.adId && !Array.isArray(filter.adId)) {
+            adId = filter.adId ? 'adId=' + filter.adId + '&' : '';
+        }else if(filter.adId && Array.isArray(filter.adId)) {
+            filter.adId.forEach(i => {
+               adId +='adId='+i+'&';
+            });
+        }
+
         let queryParams = '?'+brand+model+minPrice+maxPrice+minYear+maxYear+minKm+maxKm+minPower+maxPower+fuelType+minWh+maxWh
         +minRam+maxRam+minHd+maxHd+minSsd+maxSsd+maxScreen+minScreen+type+status+adId+limit+userId;
         queryParams=queryParams.slice(0, -1);
+        console.log(queryParams);
         return this.http.get("api/advertisement"+queryParams);
     }
 
     getAdById(id) {
         return this.http.get("api/details?id="+id);
+
     }
 
     deleteAdById(id){
@@ -63,6 +72,29 @@ class AdvertisementService {
         ad.status='aktivan';
         return this.http.post('api/advertisement', {ad: ad});
     }
+
+
+    markAdAsFavorite(adId, user){
+        console.log("m as fav ");
+        let indx = user.favorites.findIndex(id => id == adId);
+        if(indx != -1){
+            return;
+        }else{
+            user.favorites.push(adId);
+            this.authenticationService.updateUser(user);
+        }
+    }
+
+    removeFromFavorites(adId, user){
+        let indx = user.favorites.findIndex(id => id == adId);
+        if(indx === -1){
+            return;
+        }else{
+            user.favorites.splice(indx, 1);
+            this.authenticationService.updateUser(user);
+        }
+    }
+
 }
 
 tvzShopApp.service('AdvertisementService', AdvertisementService);

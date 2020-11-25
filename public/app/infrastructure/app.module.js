@@ -9,9 +9,9 @@ let tvzShopApp = angular.module('tvzShopApp', ['ui.router']).run(function($trans
                 }else
                     resolve();
             });
+
         }
         return true;
 
     });
-
 });

@@ -27,9 +27,9 @@
                  ng-class="c.loginStatus.status == 200 ? 'alert alert-success' : 'alert alert-warning'">
                 {{c.loginStatus.message}}
             </div>
+            <fieldset class="form-group" style="width: 70%"><button type="submit" class="btn btn-secondary"  ng-disabled="loginForm.$invalid"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                Prijava</button></fieldset>
 
-            <button type="submit" class="btn btn-secondary" ng-disabled="loginForm.$invalid"><i class="fa fa-sign-in" aria-hidden="true"></i>
-                Prijava</button>
         </form>
 
         <aside>

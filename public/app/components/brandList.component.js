@@ -6,9 +6,9 @@ tvzShopApp.component('brandList', {
     controller: function (BrandService, $scope) {
         this.$onInit = function(){
             if(this.category==='Automobili'){
-                this.introText='Prodaja automobila u malim oglasima sa slikama i cijenom oglasa. Velik izbor rabljenih osobnih vozila na oglasniku TVZ Oglasnik.hr.';
+                this.introText='Prodaja automobila u malim oglasima sa slikama i cijenom oglasa. Velik izbor rabljenih osobnih vozila na oglasniku TVZShop.';
             }else if(this.category==='Traktori'){
-                this.introText='Prodaja rabljenih traktora u malim oglasima sa slikama i cijenom oglasa. Velik izbor vozila na oglasniku TVZ Oglasnik.hr.';
+                this.introText='Prodaja rabljenih traktora u malim oglasima sa slikama i cijenom oglasa. Velik izbor vozila na oglasniku TVZShop.';
             }else if(this.category==='Računala'){
                 this.introText='Prodaja prijenosnih računala. Laptopi i prijenosnici u malim oglasima sa slikama i cijenama prijenosnih računala.';
             }else if(this.category==='Mobilni telefoni'){

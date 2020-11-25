@@ -32,6 +32,7 @@ tvzShopApp.component('register', {
         };
 
         this.submitRegisterForm = function () {
+            this.user.favorites = [];
             AuthenticationService.register(this.user).then((d) => {
                 this.registerStatus = {};
                 this.registerStatus.message=d.data.message;

@@ -12,28 +12,6 @@
         <div id="detail-ad-status" ng-if="c.advertisement.status==='prodan'"><i class="fa fa-info" aria-hidden="true"></i>
             Ovaj oglas je prodan</div>
     </section>
-
-    <section id="detail-ad-boxes" ng-if="c.advertisement.type==='Traktori' || c.advertisement.type==='Automobili'">
-        <div>
-            <label>Godina proizvodnje</label>
-            <p>{{c.advertisement.year}}</p>
-        </div>
-        <div ng-if="c.advertisement.km">
-            <label>Prijeđeni kilometri</label>
-            <p>{{c.advertisement.km}}</p>
-        </div>
-        <div ng-if="c.advertisement.wh">
-            <label>Radni sati</label>
-            <p>{{c.advertisement.wh}}</p>
-        </div>
-        <div ng-if="c.advertisement.power">
-            <span class="engine-icon"></span>
-            <label>Snaga motora</label>
-            <p>{{c.advertisement.power}} kW</p>
-        </div>
-        <br style="clear:both;"/>
-    </section>
-
     <div id="ad-detail-data">
         <div id="detail-ad-data-table-other">
             <div id="detail-ad-data-table">

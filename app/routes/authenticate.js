@@ -86,5 +86,21 @@ module.exports = function (app, express, db, jwt, secret, bcrypt) {
         });
     });
 
+    authRouter.route('/user').put(function (req, res) {
+        req.body.user._id=ObjectId(req.query.id);
+
+        db.collection('users').updateOne({
+            _id: ObjectId(req.query.id)
+        }, {
+            $set: req.body.user
+        }, function (err, data) {
+            if (!err) {
+                res.json({status: 201, changedRows: data.nModified});
+            } else {
+                res.json({status: 500});
+            }
+        });
+    });
+
     return authRouter;
 };
