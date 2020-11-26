@@ -54,7 +54,6 @@ class AdvertisementService {
         let queryParams = '?'+brand+model+minPrice+maxPrice+minYear+maxYear+minKm+maxKm+minPower+maxPower+fuelType+minWh+maxWh
         +minRam+maxRam+minHd+maxHd+minSsd+maxSsd+maxScreen+minScreen+type+status+adId+limit+userId;
         queryParams=queryParams.slice(0, -1);
-        console.log(queryParams);
         return this.http.get("api/advertisement"+queryParams);
     }
 
@@ -73,9 +72,12 @@ class AdvertisementService {
         return this.http.post('api/advertisement', {ad: ad});
     }
 
+    updateAd(adId, ad){
+        return this.http.put('/api/advertisement?id='+adId, {ad:ad});
+    }
+
 
     markAdAsFavorite(adId, user){
-        console.log("m as fav ");
         let indx = user.favorites.findIndex(id => id == adId);
         if(indx != -1){
             return;

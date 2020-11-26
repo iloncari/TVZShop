@@ -31,7 +31,7 @@ tvzShopApp.component('filter', {
                 this.filter={};
             }
         };
-        //slusaj iz categorx da je brand selected
+
         $scope.$on('brand_item_selected1', (event, brand) => {
             this.filter = {};
             this.filter.brand = brand;
@@ -42,7 +42,6 @@ tvzShopApp.component('filter', {
             }
         });
 
-        //u category da je fitrirano i salji rezultae
         this.onFilterClick = function () {
             this.filter.status='aktivan';
             this.filter.type=this.category;

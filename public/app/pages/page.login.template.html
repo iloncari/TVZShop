@@ -13,6 +13,7 @@
                 <p ng-show="(loginForm.username.$error.minlength || loginForm.username.$error.maxlength ) && !loginForm.username.$pristine"
                    class="help-block">Korisničko ime mora imati između 3 i 15 znakova.</p>
             </fieldset>
+
             <fieldset id="loginForm_password" class="form-group"
                       ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
                 <label>Lozinka*</label>
@@ -23,13 +24,14 @@
                 <p ng-show="(loginForm.password.$error.minlength || loginForm.password.$error.maxlength ) && !loginForm.password.$pristine"
                    class="help-block">Lozinka mora imati između 6 i 15 znakova.</p>
             </fieldset>
+
             <div id="login_msg" ng-show="c.loginStatus.message"
                  ng-class="c.loginStatus.status == 200 ? 'alert alert-success' : 'alert alert-warning'">
                 {{c.loginStatus.message}}
             </div>
+
             <fieldset class="form-group" style="width: 70%"><button type="submit" class="btn btn-secondary"  ng-disabled="loginForm.$invalid"><i class="fa fa-sign-in" aria-hidden="true"></i>
                 Prijava</button></fieldset>
-
         </form>
 
         <aside>

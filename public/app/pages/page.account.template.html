@@ -1,4 +1,5 @@
 <div id="container_account">
+
     <div id="account_info_table">
         <p><label>Korisnik: </label> {{c.user.firstname}} {{c.user.lastname}}</p>
         <p><label>Korisničko ime: </label> {{c.user.username}}</p>
@@ -18,11 +19,14 @@
     <section id="active" class="tabcontent" ng-if="c.selectedTab==='active'">
         <ad-list results='false' filter="c.activeFilter" title="Aktivni oglasi" empty="Nemate aktivnih oglasa"></ad-list>
     </section>
+
     <section id="sold" class="tabcontent" ng-if="c.selectedTab==='sold'">
         <ad-list results='false' filter="c.soldFilter" title="Prodani oglasi" empty="Nemate prodanih oglasa"></ad-list>
     </section>
+
     <section id="favorited" class="tabcontent" ng-if="c.selectedTab==='favorited'">
         <ad-list results='false' filter="c.favoritedFilter" title="Omiljeni oglasi" empty="Nemate omiljenih oglasa"></ad-list>
     </section>
+
 </div>
 

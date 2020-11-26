@@ -9,9 +9,8 @@ tvzShopApp.component('login', {
         $scope.$on('auth_message',(e, d)=>{
             this.loginStatus = {};
             this.loginStatus.message=d.message;
-           this.loginStatus.status=d.status;
+            this.loginStatus.status=d.status;
         });
-
     },
     controllerAs:'c'
 

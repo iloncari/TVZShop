@@ -24,7 +24,6 @@ class InterceptorService {
 
         return this.q.reject(response);
     }
-
 }
 
 tvzShopApp.service('interceptorService',InterceptorService);

@@ -2,6 +2,7 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
 
     let ObjectId = require('mongodb').ObjectId;
     let apiRouter = express.Router();
+
     apiRouter.route('/counties').get(function (req, res) {
         db.collection('county').find({}).toArray(function (err, rows) {
             if (!err) {
@@ -12,9 +13,7 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
         });
     });
 
-
     apiRouter.route('/counties/:county/cities').get(function (req, res) {
-
         db.collection('city').find({county: req.params.county}).toArray(function (err, rows) {
             if (!err) {
                 res.json({status: 200, cities: rows});
@@ -27,7 +26,8 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
 
 
     apiRouter.route('/advertisement').get(function (req, res) {
-            this.filter = {};
+
+        this.filter = {};
             if (req.query.type)
                 this.filter.type = req.query.type;
 
@@ -108,24 +108,23 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
 
             if (req.query.screen)
                 this.filter.screen = req.query.screen;
-           if(req.query.adId && Array.isArray(req.query.adId)){
-               this.filter.$or = [];
-               req.query.adId.forEach(id => {
-                  this.filter.$or.push({_id: ObjectId(id)});
-               });
-           }else if(req.query.adId && !Array.isArray(req.query.adId)){
-               this.filter._id = ObjectId(req.query.adId);
-           }
 
-            if (req.query.userId)
-                this.filter.userId = ObjectId(req.query.userId);
-
-            this.limit;
-            if (req.query.limit) {
-                this.limit = req.query.limit;
+            if(req.query.adId && Array.isArray(req.query.adId)){
+                this.filter.$or = [];
+                req.query.adId.forEach(id => {this.filter.$or.push({_id: ObjectId(id)});});
+            }else if(req.query.adId && !Array.isArray(req.query.adId)){
+                this.filter._id = ObjectId(req.query.adId);
             }
 
-            db.collection('advertisement').find(this.filter).limit(parseInt(this.limit)).toArray(function (err, rows) {
+             if (req.query.userId)
+                 this.filter.userId = ObjectId(req.query.userId);
+
+             this.limit;
+             if (req.query.limit) {
+                 this.limit = req.query.limit;
+             }
+
+             db.collection('advertisement').find(this.filter).limit(parseInt(this.limit)).toArray(function (err, rows) {
                 if (!err) {
                     res.json({status: 200, advertisements: rows});
                 } else {
@@ -147,7 +146,7 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
 
     apiRouter.route('/advertisement').put(function (req, res) {
         req.body.ad._id=ObjectId(req.query.id);
-
+        req.body.ad.userId=ObjectId(req.body.ad.userId);
         db.collection('advertisement').updateOne({
             _id: ObjectId(req.query.id)
         }, {
@@ -161,8 +160,6 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
         });
     });
 
-
-
     apiRouter.route('/advertisement').delete(function (req, res) {
         db.collection('advertisement').removeOne({
             _id: ObjectId(req.query.id)
@@ -171,27 +168,6 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
                 res.json({status: 200, affectedRows: data.nModifiedd});
             } else
                 res.json({status: 500});
-        });
-    });
-
-
-    apiRouter.route('/brand/:brandType').get(function (req, res) {
-        db.collection('brand').find({brandType: req.params.brandType}).toArray(function (err, rows) {
-            if (!err) {
-                res.json({status: 200, brands: rows});
-            } else {
-                res.json({status: 404});
-            }
-        });
-    });
-
-    apiRouter.route('/brand/:brandName/models').get(function (req, res) {
-        db.collection('model').find({brandName: req.params.brandName}).toArray(function (err, rows) {
-            if (!err) {
-                res.json({status: 200, models: rows});
-            } else {
-                res.json({status: 404});
-            }
         });
     });
 
@@ -228,6 +204,27 @@ module.exports = function (app, express, db, jwt, secret, SerpWow) {
         });
     });
 
+
+
+    apiRouter.route('/brand/:brandType').get(function (req, res) {
+        db.collection('brand').find({brandType: req.params.brandType}).toArray(function (err, rows) {
+            if (!err) {
+                res.json({status: 200, brands: rows});
+            } else {
+                res.json({status: 404});
+            }
+        });
+    });
+
+    apiRouter.route('/brand/:brandName/models').get(function (req, res) {
+        db.collection('model').find({brandName: req.params.brandName}).toArray(function (err, rows) {
+            if (!err) {
+                res.json({status: 200, models: rows});
+            } else {
+                res.json({status: 404});
+            }
+        });
+    });
 
     return apiRouter;
 

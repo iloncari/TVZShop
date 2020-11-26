@@ -118,7 +118,7 @@ body{
 
 #advertisement_item{
     padding: 0px 5px 2px 5px;
-    height: 250px;
+    height: 280px;
     margin-bottom: 6px;
     border: 1px solid lightgray;
     background: #f3fffe;
@@ -136,7 +136,7 @@ body{
 .delete-btn, .sold-btn, .favorite-btn{
     width:150px;
     margin: 10px 0px 0px 0px;
-    color: white;
+    color: black;
 }
 
 .ad-btn{
@@ -508,10 +508,11 @@ filter{
 }
 
 .equipment_section{
-    margin-top: -20px;
+    margin-top: 20px;
     text-align: center;
     width: 33.3333%;
     float: left;
+    padding: 10px;
 }
 
 
@@ -699,29 +700,6 @@ footer{
     width: 33%;
     float: left;
 }
-
-/**
-#container-detail #detail-ad-data-main{
-    width: 58%;
-    float: left;
-    background-color: white;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px 5px 10px 5px;
-}
-
-#container-detail #detail-ad-data-other{
-    width: 38%;
-    float: left;
-    background-color: white;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px 5px 10px 5px;
-}
-
-*/
-
-
 
 table {
     font-family: arial, sans-serif;

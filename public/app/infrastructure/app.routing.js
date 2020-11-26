@@ -1,4 +1,4 @@
-tvzShopApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+tvzShopApp.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.
     state('home', {
         url:'/',
@@ -23,8 +23,5 @@ tvzShopApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         component:'advertisement'
     });
 
-
-
     $urlRouterProvider.otherwise('/');
- // $httpProvider.interceptors.push('interceptorService');
 });

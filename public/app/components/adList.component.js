@@ -38,13 +38,9 @@ tvzShopApp.component('adList', {
                     {{advertisement.price}} kn
                 </div>
             </div>
-            <!--
-            <button ng-if="false" type="button" class="btn btn-danger ad-btn" ng-click="c.deleteAd(advertisement._id)">Izbrisi</button>
-             <button ng-if="false" type="button" class="btn btn-secondary ad-btn" ng-click="c.markAsSold(advertisement._id)">Označi prodanim</button>
- -->
-                     <input ng-if="c.filter.userId" class="delete-btn" ng-click="c.deleteAd(advertisement._id)" style="background-color: #ff725e;" type="button" value="Izbriši">
-             <input ng-if="c.filter.userId && c.filter.status!='prodan'" class="sold-btn" ng-click="c.markAsSold(advertisement._id)" style="background-color: #92ff94;" type="button" value="Oznaci kao prodan">
-              <input ng-if="c.user" class="favorite-btn" ng-class="c.getFavoriteClass(advertisement._id)" ng-click="c.onFavoriteClick(advertisement._id)"  type="button" value="{{c.favoriteText}}">
+            <input ng-if="c.filter.userId" class="delete-btn" ng-click="c.deleteAd(advertisement._id)" style="background-color: #ff725e;" type="button" value="Izbriši">
+            <input ng-if="c.filter.userId && c.filter.status!='prodan'" class="sold-btn" ng-click="c.markAsSold(advertisement._id)" style="background-color: #92ff94;" type="button" value="Oznaci kao prodan">
+            <input ng-if="c.user" class="favorite-btn" ng-class="c.getFavoriteClass(advertisement._id)" ng-click="c.onFavoriteClick(advertisement._id)"  type="button" value="{{c.favoriteText}}">
         </div>
     `,
     bindings: {
@@ -117,7 +113,6 @@ tvzShopApp.component('adList', {
             let indx = this.advertisements.findIndex(ad => ad._id == adId);
             let ad = this.advertisements[indx];
             ad.status = 'prodan';
-
 
             AdvertisementService.updateAd(adId, ad).then((d) => {
                 if(d.data.status===201){

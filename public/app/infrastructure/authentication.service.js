@@ -9,7 +9,6 @@ class AuthenticationService {
         this.token='';
     }
 
-
     isAuthenticated(){
         return sessionStorage.getItem('token') ? true : false;
     }
@@ -49,7 +48,6 @@ class AuthenticationService {
         return this.http.post('/authenticate/register',{user:user});
     }
 
-
     logout(){
         sessionStorage.removeItem('token');
         this.user=null;
@@ -57,10 +55,6 @@ class AuthenticationService {
         this.rootScope.$broadcast('login_status', false);
         this.state.go('login');
     }
-
-
-
-
 }
 
 tvzShopApp.service('AuthenticationService', AuthenticationService);

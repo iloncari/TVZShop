@@ -33,25 +33,12 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('county').insertMany(counties, function (err, data) {
             if (!err) {
-                console.log("Zupanije uspješno inicijalizirane u bazu\n");
+                console.log("Counties added successfully\n");
             } else{
-                console.log("Error: Zupanije nisu  inicijalizirane\n");
+                console.log("Error: Counties not  added\n");
             }
         });
 
-
-        let t = [
-            {status: 'u',
-            name:'name'}
-        ];
-
-        db.collection('test').insertMany(t, function (err, data) {
-            if (!err) {
-                console.log("t uspješno inicijalizirane u bazu\n");
-            } else{
-                console.log("Error: t nisu  inicijalizirane\n");
-            }
-        });
 
 
         let cities = [
@@ -3587,10 +3574,12 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('city').insertMany(cities, function (err, data) {
             if (!err) {
-                console.log("Mjesta uspješno inicijalizirane u bazu\n");
-            } else
-                console.log("Error: Mjesta nisu  inicijalizirane u bazu\n");
+                console.log("Cities added successfully\n");
+            } else {
+                console.log("Error: Cities not  added\n");
+            }
         });
+
 
         let brands = [
             {name: 'Alfa Romeo', brandType: 'Automobili'},
@@ -3686,9 +3675,10 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('brand').insertMany(brands, function (err, data) {
             if (!err) {
-                console.log("Brandovi uspješno inicijalizirani u bazu\n");
-            } else
-                console.log("Error: Brandovi nisu  inicijalizirani u bazu\n");
+                console.log("Brands added successfully\n");
+            } else {
+                console.log("Error: Brands not  added\n");
+            }
         });
 
 
@@ -3993,14 +3983,13 @@ mongo.connect(config.pool, function (err, database) {
 
         db.collection('model').insertMany(cars_model, function (err, data) {
             if (!err) {
-                console.log("Modeli uspješno inicijalizirani u bazut\n");
-            } else
-                console.log("Error: Modeli nisu  inicijalizirani u bazu\n");
+                console.log("Models added successfully\n");
+            } else {
+                console.log("Models: Cities not  added\n");
+            }
         });
 
     }
-
-
 });
 
 

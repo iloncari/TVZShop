@@ -225,9 +225,7 @@
                         <p ng-show="newAdForm.registration.$invalid && newAdForm.registration.$touched" class="help-block">Odaberite istek registracije</p>
                     </fieldset>
                     <br style="clear: left">
-
                 </div>
-
 
                 <div class="data_row">
                     <fieldset class="form-group"
@@ -238,7 +236,6 @@
                            class="help-block">Unos je neispravan</p>
                     </fieldset>
 
-
                     <fieldset class="form-group"
                               ng-class="{ 'has-error' : newAdForm.emisionCO2.$invalid && !newAdForm.emisionCO2.$pristine }">
                         <label>Maksimalna emisija C0&sup2; (g/km)</label><br>
@@ -246,7 +243,6 @@
                         <p ng-show="newAdForm.emisionCO2.$error.min && !newAdForm.emisionCO2.$pristine"
                            class="help-block">Unos je neispravan</p>
                     </fieldset>
-
 
                     <fieldset class="form-group">
                         <label>Ekološka kategorija vozila</label><br>
@@ -273,7 +269,6 @@
                         <p ng-show="(newAdForm.km.$error.min || newAdForm.km.$error.maxlength) && !newAdForm.km.$error.required && !newAdForm.km.$pristine" class="help-block">Unos je neispravan</p>
                     </fieldset>
 
-
                     <fieldset class="form-group"
                               ng-class="{ 'has-error' : newAdForm.owner.$invalid && newAdForm.owner.$touched }">
                         <label>Vlasnik*</label><br>
@@ -285,7 +280,6 @@
                         </select>
                         <p ng-show="newAdForm.owner.$invalid && newAdForm.owner.$touched" class="help-block">Odaberite broj vlasnika</p>
                     </fieldset>
-
 
                     <fieldset class="form-group">
                         <label>Boja</label><br>
@@ -315,7 +309,6 @@
                     </fieldset>
                     <br style="clear: left">
                 </div>
-
 
                 <div class="data_row">
                     <fieldset class="form-group"

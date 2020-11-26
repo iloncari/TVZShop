@@ -11,8 +11,6 @@ tvzShopApp.component('account', {
             this.soldFilter.userId = this.user._id;
             this.soldFilter.status='prodan';
 
-
-            //druga komponenta koja ce trazit samo ovo za favorite posalji joj polje idova i trazi ona sa mongo or
             this.favoritedFilter={};
             this.favoritedFilter.adId=this.user.favorites;
 

@@ -34,12 +34,9 @@ tvzShopApp.component('brandList', {
 
         };
 
-        //u categoray da je odabran brand
         this.onBrandItemClick=function (brandName) {
           $scope.$emit('brand_item_selected', brandName);
         };
-
-
     },
     controllerAs:
         'c'
